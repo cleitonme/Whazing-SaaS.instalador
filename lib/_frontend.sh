@@ -17,7 +17,7 @@ frontend_node_dependencies() {
   sudo su - deploy <<EOF
   cd /home/deploy/izing/frontend
   npm install --force --silent
-  npm i @quasar/cli
+  sudo npm i @quasar/cli
 EOF
 
   sleep 2
