@@ -1,0 +1,6 @@
+gerar_senha=$(date | md5sum | head -c15 ; echo)
+deploy_password=${gerar_senha}
+pg_pass=${gerar_senha}
+redis_pass=${gerar_senha}
+rabbit_pass=${gerar_senha}
+deploy_email=seuemail@gmail.com
