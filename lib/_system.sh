@@ -115,7 +115,7 @@ system_unzip_izing() {
   sleep 2
 
   sudo su - deploy <<EOF
-  git clone ${repositorio} /home/deploy/izing
+  git clone https://github.com/cleitonme/izingpro.bayles.git /home/deploy/izing
 EOF
 
   sleep 2
