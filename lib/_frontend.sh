@@ -29,7 +29,7 @@ frontend_quasar() {
 
   sleep 2
 
-  sudo su - deploy <<EOF
+  sudo su - root <<EOF
   cd /home/deploy/izing/frontend
   sudo npm i @quasar/cli
 EOF
