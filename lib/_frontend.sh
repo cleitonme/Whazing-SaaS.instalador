@@ -17,6 +17,20 @@ frontend_node_dependencies() {
   sudo su - deploy <<EOF
   cd /home/deploy/izing/frontend
   npm install --force --silent
+EOF
+
+  sleep 2
+}
+
+frontend_quasar() {
+  print_banner
+  printf "${WHITE} 💻 Instalando dependências do frontend...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/izing/frontend
   sudo npm i @quasar/cli
 EOF
 
