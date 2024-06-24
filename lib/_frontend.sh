@@ -16,7 +16,7 @@ frontend_node_dependencies() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/izing/frontend
-  npm install --force --silent
+  npm install --force
 EOF
 
   sleep 2
