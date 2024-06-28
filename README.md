@@ -30,16 +30,16 @@ apt install git
 cd /root
 ```
 ```bash
-git clone https://github.com/cleitonme/izingpro.bayles.install.git izinginstalador
+git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
 ```
 ```bash
-sudo chmod +x ./izinginstalador/izing
+sudo chmod +x ./whazinginstalador/whazing
 ```
 ```bash
-cd ./izinginstalador
+cd ./whazinginstalador
 ```
 ```bash
-sudo ./izing
+sudo ./whazing
 ```
 
 ## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR
@@ -48,29 +48,29 @@ sudo ./izing
 cd /root
 ```
 ```bash
-cd ./izinginstalador
+cd ./whazinginstalador
 ```
 ```bash
-sudo ./izing
+sudo ./whazing
 ```
 
 ## Alterar Frontend
 
 Para mudar nome do aplicativo:
 
-/home/deploy/izing/frontend/quasar.conf
+/home/deploy/whazing/frontend/quasar.conf
 
-/home/deploy/izing/frontend/src/index.template.html
+/home/deploy/whazing/frontend/src/index.template.html
 
 Para alterar logos e icones:
 
-pasta /home/deploy/izing/frontend/public
+pasta /home/deploy/whazing/frontend/public
 
 Para alterar cores:
 
-/home/deploy/izing/frontend/src/css/app.sass
+/home/deploy/whazing/frontend/src/css/app.sass
 
-/home/deploy/izing/frontend/src/css/quasar.variables.sass
+/home/deploy/whazing/frontend/src/css/quasar.variables.sass
 
 Sempre alterar usando usuario deploy você pode conectar servidor com aplicativo Bitvise SSH Client. Depois das alterações compilar novamente o Frontend
 
@@ -78,7 +78,7 @@ Sempre alterar usando usuario deploy você pode conectar servidor com aplicativo
 su deploy
 ```
 ```bash
-cd /home/deploy/izing/frontend/
+cd /home/deploy/whazing/frontend/
 ```
 ```bash
 npm run build

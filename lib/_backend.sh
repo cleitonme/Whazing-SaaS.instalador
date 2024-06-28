@@ -19,7 +19,7 @@ backend_db_create() {
   mkdir -p /data
   chown -R 999:999 /data
   docker run --name postgresql \
-                -e POSTGRES_USER=izing \
+                -e POSTGRES_USER=whazing \
                 -e POSTGRES_PASSWORD=${pg_pass} \
 				-e TZ="America/Sao_Paulo" \
                 -p 5432:5432 \
@@ -27,24 +27,14 @@ backend_db_create() {
                 -v /data:/var/lib/postgresql/data \
                 -d postgres
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
-  docker run --name redis-izing \
+  docker run --name redis-whazing \
                 -e TZ="America/Sao_Paulo" \
                 -p 6379:6379 \
                 --restart=always \
                 -d redis:latest redis-server \
                 --appendonly yes \
                 --requirepass "${redis_pass}"
-
-  docker run -d --name rabbitmq \
-                -p 5672:5672 \
-                -p 15672:15672 \
-                --restart=always \
-                --hostname rabbitmq \
-                -e RABBITMQ_DEFAULT_USER=izing \
-                -e RABBITMQ_DEFAULT_PASS=${rabbit_pass} \
-                -v /data:/var/lib/rabbitmq \
-                rabbitmq:3-management-alpine
-  
+ 
   docker run -d --name portainer \
                 -p 9000:9000 -p 9443:9443 \
                 --restart=always \
@@ -81,11 +71,11 @@ backend_set_env() {
   jwt_refresh_secret=$(openssl rand -base64 32)
 
 sudo su - deploy << EOF
-  cat <<[-]EOF > /home/deploy/izing/backend/.env
+  cat <<[-]EOF > /home/deploy/whazing/backend/.env
 NODE_ENV=
 BACKEND_URL=${backend_url}
 FRONTEND_URL=${frontend_url}
-ADMIN_DOMAIN=izing.io
+ADMIN_DOMAIN=whazing.io
 
 PROXY_PORT=443
 PORT=3000
@@ -95,7 +85,7 @@ DB_DIALECT=postgres
 DB_PORT=5432
 DB_TIMEZONE=-03:00
 POSTGRES_HOST=localhost
-POSTGRES_USER=izing
+POSTGRES_USER=whazing
 POSTGRES_PASSWORD=${pg_pass}
 POSTGRES_DB=postgres
 
@@ -122,21 +112,21 @@ MIN_SLEEP_INTERVAL=200
 MAX_SLEEP_INTERVAL=500
 
 # dados do RabbitMQ / Para não utilizar, basta comentar a var AMQP_URL
-RABBITMQ_DEFAULT_USER=izing
+RABBITMQ_DEFAULT_USER=whazing
 RABBITMQ_DEFAULT_PASS=${rabbit_pass}
-AMQP_URL='amqp://izing:${rabbit_pass}@localhost:5672?connection_attempts=5&retry_delay=5'
+#AMQP_URL='amqp://whazing:${rabbit_pass}@localhost:5672?connection_attempts=5&retry_delay=5'
 
 # api oficial (integração em desenvolvimento)
 API_URL_360=https://waba-sandbox.360dialog.io
 
 # usado para mosrar opções não disponíveis normalmente.
-ADMIN_DOMAIN=izing.io
+ADMIN_DOMAIN=whazing.io
 
 # Dados para utilização do canal do facebook
 FACEBOOK_APP_ID=3237415623048660
 FACEBOOK_APP_SECRET_KEY=3266214132b8c98ac59f3e957a5efeaaa13500
 
-# Limitar Uso do Izing Usuario e Conexões
+# Limitar Uso do whazing Usuario e Conexões
 USER_LIMIT=99
 CONNECTIONS_LIMIT=99
 [-]EOF
@@ -158,7 +148,7 @@ backend_node_dependencies() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/izing/backend
+  cd /home/deploy/whazing/backend
   npm install --force
 EOF
 
@@ -178,7 +168,7 @@ backend_node_build() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/izing/backend
+  cd /home/deploy/whazing/backend
 
 EOF
 
@@ -198,7 +188,7 @@ backend_db_migrate() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/izing/backend
+  cd /home/deploy/whazing/backend
   npx sequelize db:migrate > /dev/null
 EOF
 
@@ -218,7 +208,7 @@ backend_db_seed() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/izing/backend
+  cd /home/deploy/whazing/backend
   npx sequelize db:seed:all > /dev/null
 EOF
 
@@ -239,8 +229,8 @@ backend_start_pm2() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/izing/backend
-  pm2 start dist/server.js --name izing-backend
+  cd /home/deploy/whazing/backend
+  pm2 start dist/server.js --name whazing-backend
   pm2 save
 EOF
 
@@ -263,7 +253,7 @@ backend_nginx_setup() {
 
 sudo su - root << EOF
 
-cat > /etc/nginx/sites-available/izing-backend << 'END'
+cat > /etc/nginx/sites-available/whazing-backend << 'END'
 server {
   server_name $backend_hostname;
   
@@ -281,7 +271,7 @@ server {
 }
 END
 
-ln -s /etc/nginx/sites-available/izing-backend /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/whazing-backend /etc/nginx/sites-enabled
 EOF
 
   sleep 2

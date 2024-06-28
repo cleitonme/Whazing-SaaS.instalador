@@ -19,7 +19,7 @@ get_urls() {
   get_backend_url
 }
 
-izing_atualizar() {
+whazing_atualizar() {
   git_update
   backend_node_dependencies
   backend_node_build
@@ -45,7 +45,7 @@ inquiry_options() {
   printf "${WHITE} 💻 O que você precisa fazer?${GRAY_LIGHT}"
   printf "\n\n"
   printf "   [1] Instalar\n"
-  printf "   [2] Atualizar Izing(antes de atualizar faça um Snapshots da VPS\n"
+  printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"
   printf "   [3] Ativar Firewall\n"
   printf "   [4] Desativar Firewall\n"
   printf "\n"
@@ -56,7 +56,7 @@ inquiry_options() {
 
 
     2) 
-      izing_atualizar 
+      whazing_atualizar 
       exit
       ;;
 
