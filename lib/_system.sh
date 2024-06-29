@@ -103,38 +103,38 @@ EOF
 }
 
 #######################################
-# unzip whazing
+# unzip izing
 # Arguments:
 #   None
 #######################################
-system_unzip_whazing() {
+system_unzip_izing() {
   print_banner
-  printf "${WHITE} 💻 Fazendo clone whazing...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Fazendo clone izing...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
   sudo su - deploy <<EOF
-  git clone https://github.com/cleitonme/Whazing-SaaS.git /home/deploy/whazing
+  git clone https://github.com/cleitonme/Whazing-SaaS.git /home/deploy/izing
 EOF
 
   sleep 2
 }
 
 #######################################
-# updates whazing
+# updates izing
 # Arguments:
 #   None
 #######################################
 git_update() {
   print_banner
-  printf "${WHITE} 💻 Atualizando o whazing do git...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Atualizando o izing do git...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whazing
+  cd /home/deploy/izing
   pm2 stop all
   git checkout master
   git pull
@@ -239,7 +239,7 @@ EOF
 
 system_pm2_stop() {
   print_banner
-  printf "${WHITE} 💻 Parando o whazing...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Parando o izing...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
@@ -253,7 +253,7 @@ EOF
 
 system_pm2_start() {
   print_banner
-  printf "${WHITE} 💻 Iniciando o whazing...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Iniciando o izing...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
@@ -415,7 +415,7 @@ system_nginx_conf() {
 
 sudo su - root << EOF
 
-cat > /etc/nginx/conf.d/whazing.conf << 'END'
+cat > /etc/nginx/conf.d/izing.conf << 'END'
 client_max_body_size 100M;
 large_client_header_buffers 16 5120k;
 END
@@ -486,7 +486,7 @@ system_docker_start() {
   sudo su - root <<EOF
   docker stop $(docker ps -q)
   docker container start postgresql
-  docker container start redis-whazing
+  docker container start redis-izing
   docker container start rabbitmq
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
 EOF
@@ -507,7 +507,7 @@ system_docker_restart() {
   sleep 2
 
   sudo su - root <<EOF
-  docker container restart redis-whazing
+  docker container restart redis-izing
   docker container restart rabbitmq
   docker container restart portainer
   docker container restart postgresql
@@ -545,7 +545,7 @@ echo $deploy_password > /root/senhadeploy
   printf "\n"
   printf "Senha Usuario deploy: $deploy_password"
   printf "\n"
-  printf "Usuario do Banco de Dados: whazing"
+  printf "Usuario do Banco de Dados: izing"
   printf "\n"
   printf "Nome do Banco de Dados: postgres"
   printf "\n"
