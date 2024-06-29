@@ -15,7 +15,7 @@ frontend_node_dependencies() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whazing/frontend
+  cd /home/deploy/izing/frontend
   npm install --force
 EOF
 
@@ -30,7 +30,7 @@ frontend_quasar() {
   sleep 2
 
   sudo su - root <<EOF
-  cd /home/deploy/whazing/frontend
+  cd /home/deploy/izing/frontend
   sudo npm i @quasar/cli
 EOF
 
@@ -50,7 +50,7 @@ frontend_node_build() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whazing/frontend
+  cd /home/deploy/izing/frontend
   npx update-browserslist-db@latest --yes
   export NODE_OPTIONS=--openssl-legacy-provider
   npx quasar build -P -m pwa
@@ -78,7 +78,7 @@ frontend_set_env() {
   backend_url=https://$backend_url
 
 sudo su - deploy << EOF
-  cat <<[-]EOF > /home/deploy/whazing/frontend/.env
+  cat <<[-]EOF > /home/deploy/izing/frontend/.env
 URL_API=${backend_url}
 FACEBOOK_APP_ID='23156312477653241'
 [-]EOF
@@ -101,8 +101,8 @@ frontend_start_pm2() {
   sleep 2
 
   sudo su - deploy <<EOF
-  cd /home/deploy/whazing/frontend
-  pm2 start server.js --name whazing-frontend
+  cd /home/deploy/izing/frontend
+  pm2 start server.js --name izing-frontend
   pm2 save
 EOF
 
@@ -125,7 +125,7 @@ frontend_nginx_setup() {
 
 sudo su - root << EOF
 
-cat > /etc/nginx/sites-available/whazing-frontend << 'END'
+cat > /etc/nginx/sites-available/izing-frontend << 'END'
 server {
   server_name $frontend_hostname;
   
@@ -145,7 +145,7 @@ server {
 
 END
 
-ln -s /etc/nginx/sites-available/whazing-frontend /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/izing-frontend /etc/nginx/sites-enabled
 EOF
 
   sleep 2
