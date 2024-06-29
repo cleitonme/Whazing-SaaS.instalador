@@ -52,7 +52,7 @@ system_certbot_install
 system_create_user
 
 # backend related
-system_unzip_whazing
+system_unzip_izing
 system_set_user_mod
 backend_set_env
 backend_db_create
