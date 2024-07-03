@@ -189,7 +189,7 @@ backend_db_migrate() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  npx sequelize db:migrate > /dev/null
+  npx sequelize db:migrate
 EOF
 
   sleep 2
@@ -209,7 +209,7 @@ backend_db_seed() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  npx sequelize db:seed:all > /dev/null
+  npx sequelize db:seed:all
 EOF
 
   sleep 2
