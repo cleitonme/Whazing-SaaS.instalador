@@ -487,7 +487,6 @@ system_docker_start() {
   docker stop $(docker ps -q)
   docker container start postgresql
   docker container start redis-whazing
-  docker container start rabbitmq
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
 EOF
 
@@ -508,7 +507,6 @@ system_docker_restart() {
 
   sudo su - root <<EOF
   docker container restart redis-whazing
-  docker container restart rabbitmq
   docker container restart portainer
   docker container restart postgresql
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
