@@ -24,7 +24,6 @@ whazing_atualizar() {
   backend_node_dependencies
   backend_node_build
   backend_db_migrate
-  backend_db_seed
   system_pm2_start
   frontend_node_dependencies
   frontend_node_build
@@ -38,6 +37,10 @@ desativar_firewall () {
   parar_firewall
 }
 
+Erro_global () {
+  erro_banco
+}
+
 inquiry_options() {
 
   print_banner
@@ -48,6 +51,7 @@ inquiry_options() {
   printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"
   printf "   [3] Ativar Firewall\n"
   printf "   [4] Desativar Firewall\n"
+  printf "   [5] Erro global/pg_filenode.map\n"
   printf "\n"
   read -p "> " option
 
@@ -68,6 +72,11 @@ inquiry_options() {
 	  
     4) 
       desativar_firewall 
+      exit
+      ;;
+	  
+    5) 
+      Erro_global 
       exit
       ;;
 

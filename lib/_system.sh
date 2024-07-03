@@ -121,6 +121,23 @@ EOF
   sleep 2
 }
 
+erro_banco() {
+  print_banner
+  printf "${WHITE} 💻 Estamos corrigindo...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  docker container restart postgresql
+  docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
+  docker container restart postgresql
+  
+EOF
+
+  sleep 2
+}
+
 #######################################
 # updates whazing
 # Arguments:
@@ -136,7 +153,8 @@ git_update() {
   sudo su - deploy <<EOF
   cd /home/deploy/whazing
   pm2 stop all
-  git checkout master
+  git stash clear
+  git stash
   git pull
 EOF
 
