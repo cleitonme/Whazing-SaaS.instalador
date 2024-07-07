@@ -115,6 +115,12 @@ Depois acesse novamente url http://seuip:9000/
 
 -  [Powerful cloud VPS & Web hosting.](https://control.peramix.com/?affid=58)
 
+- Cupom 25% desconto "WHAZING"
+
+```bash
+WHAZING
+```
+
 ## Consultoria particular
 
 Para consultoria particular chamar (será cobrado por isso) 48 999416725 
