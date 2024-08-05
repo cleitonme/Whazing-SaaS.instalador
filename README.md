@@ -56,35 +56,7 @@ sudo ./whazing
 
 ## Alterar Frontend
 
-Para mudar nome do aplicativo:
-
-/home/deploy/whazing/frontend/quasar.conf
-
-/home/deploy/whazing/frontend/src/index.template.html
-
-Para alterar logos e icones:
-
-pasta /home/deploy/whazing/frontend/public
-
-Para alterar cores:
-
-/home/deploy/whazing/frontend/src/css/app.sass
-
-/home/deploy/whazing/frontend/src/css/quasar.variables.sass
-
-Sempre alterar usando usuario deploy você pode conectar servidor com aplicativo Bitvise SSH Client. Depois das alterações compilar novamente o Frontend
-
-```bash
-su deploy
-```
-```bash
-cd /home/deploy/whazing/frontend/
-```
-```bash
-npm run build
-```
-
-Testar as alterações em aba anonima
+Use configuração do Menu empresas para alterar nome do site e LOGOS 
 
 ## Erros
 
