@@ -20,6 +20,7 @@ get_urls() {
 }
 
 whazing_atualizar() {
+  system_pm2_stop
   git_update
   backend_node_dependencies
   backend_node_build

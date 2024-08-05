@@ -161,6 +161,8 @@ git_update() {
   git stash clear
   git stash
   git pull
+  unzip -o whazing.zip
+  chmod 775 /home/deploy/whazing/ -Rf
 EOF
 
   sleep 2
