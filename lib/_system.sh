@@ -116,6 +116,11 @@ system_unzip_whazing() {
 
   sudo su - deploy <<EOF
   git clone https://github.com/cleitonme/Whazing-SaaS.git /home/deploy/whazing
+  cd /home/deploy/whazing
+  unzip -o whazing.zip
+  chmod 775 /home/deploy/whazing/ -Rf
+  unzip -o logos.zip
+  chmod 775 /home/deploy/whazing/ -Rf
 EOF
 
   sleep 2
