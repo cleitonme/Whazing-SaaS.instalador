@@ -1,3 +1,22 @@
+**IMPORTANTE**: 
+
+- [Termos de USO](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TermosdeUso.md)
+
+- [Contrato de Licença](https://github.com/cleitonme/Whazing-SaaS/blob/main/LICENSE)
+
+
+
+Versão grátis* - para sempre não tera bloqueios
+
+- Limites da versão grátis 10 usuários e 2 canais
+
+
+Versão Premium*
+
+-Não posso possui limites
+
+-  [Tabela de Valores versão premium e serviço de instalação](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TabeladeValores.md)
+
 ## CRIAR SUBDOMINIO E APONTAR PARA O IP DA SUA VPS
 
 Requisitos
