@@ -1,3 +1,5 @@
+Grupo whatsapp [Link do grupo](https://chat.whatsapp.com/KAk11eaAfRu6Bp13wQX6MB)
+
 **IMPORTANTE**: 
 
 - [Termos de USO](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TermosdeUso.md)
