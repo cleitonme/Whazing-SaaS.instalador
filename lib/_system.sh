@@ -143,6 +143,24 @@ EOF
   sleep 2
 }
 
+apagar_distsrc() {
+  print_banner
+  printf "${WHITE} 💻 Apagando arquivos versao anterior${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  cd /home/deploy/whazing/backend
+  rm dist/ -Rf
+  cd /home/deploy/whazing/frontend  
+  rm dist/ -Rf
+  rm src/ -Rf
+EOF
+
+  sleep 2
+}
+
 #######################################
 # updates whazing
 # Arguments:

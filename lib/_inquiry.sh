@@ -21,6 +21,7 @@ get_urls() {
 
 whazing_atualizar() {
   system_pm2_stop
+  apagar_distsrc
   git_update
   backend_node_dependencies
   backend_node_build
