@@ -34,7 +34,9 @@ https://dnschecker.org/
 ## RODAR OS COMANDOS ABAIXO PARA INSTALAR
 
 para evitar erros recomendados atualizar sistema e apos atualizar reniciar para evitar erros
-
+```bash
+sudo su root
+```
 ```bash
 apt -y update && apt -y upgrade
 ```
@@ -43,7 +45,9 @@ reboot
 ```
  
 Depois reniciar seguir com a instalacao
-
+```bash
+sudo su root
+```
 ```bash
 apt install git
 ```
@@ -64,7 +68,9 @@ sudo ./whazing
 ```
 
 ## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR
-
+```bash
+sudo su root
+```
 ```bash
 cd /root
 ```
