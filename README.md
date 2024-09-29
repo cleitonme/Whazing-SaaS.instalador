@@ -85,6 +85,54 @@ sudo ./whazing
 
 Use configuração do Menu empresas para alterar nome do site e LOGOS 
 
+## Variáveis para atendimento
+
+```bash
+{{name}}
+```
+```bash
+{{greeting}}
+```
+das 06 as 11
+= "Bom dia!"
+
+11 as 17
+= "Boa tarde!"
+
+17 as 23
+= "Boa noite!"
+
+00 as 06
+= "Boa madrugada!"
+
+```bash
+{{protocol}}
+```
+```bash
+{{email}}
+```
+Nome do Atendente
+```bash
+{{user}}
+```
+
+## Erros
+Erro Backend, não consegue logar
+reiniciar o PM2
+
+```bash
+su deploy
+```
+```bash
+pm2 stop all
+```
+```bash
+pm2 restart all
+```
+ou
+```bash
+pm2 reload all
+```
 ## Erros
 
 Caso não inicie na primeira instalação use opção 2 para atualizar pode ser algum arquivo não baixou corretamente
