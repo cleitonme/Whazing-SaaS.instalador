@@ -87,46 +87,97 @@ Use configuração do Menu empresas para alterar nome do site e LOGOS
 
 ## Variáveis para atendimento
 
-
-
-
-Email do Contato
-
-
-Nome
+Variáveis Sistema – tela de atendimento
+primeiro nome do contato
+```bash
+{{firstName}}
+```
+nome completo do contato
 ```bash
 {{name}}
 ```
+número do contato
+```bash
+{{phoneNumber}}
+```
+e-mail do contato
+```bash
+{{email}}
+```
 Saudação
 ```bash
-{{greeting}}
+{{gretting}}
 ```
-das 06 as 11
-= "Bom dia!"
-
-11 as 17
-= "Boa tarde!"
-
-17 as 23
-= "Boa noite!"
-
-00 as 06
-= "Boa madrugada!"
-
-Protocolo
+id do Ticket
+```bash
+{{ticket_id}}
+```
+Saudação
+```bash
+{{ms}}
+```
+protocolo
 ```bash
 {{protocol}}
+```
+hora
+```bash
+{{hour}}
+```
+data
+```bash
+{{date}}
+```
+Fila 
+```bash
+{{fila}}
+```
+e-mail do usuário
+```bash
+{{userEmail}}
+```
+nome do usuário
+```bash
+{{user}}
+---
+
+# Variveis Sistema - campanhas
+```bash
+{{name}}
+```
+```bash
+{{phoneNumber}}
 ```
 ```bash
 {{email}}
 ```
-Nome do Atendente
 ```bash
-{{user}}
+
+# Variveis TypeBOT
+
+```bash
+number
 ```
-Número Telefone do contato
 ```bash
-{{phoneNumber}}
+pushName
+```
+```bash
+nome
+```
+```bash
+email
+```
+```bash
+ticketId
+```
+```bash
+protocol
+```
+```bash
+ticket
+```
+```bash
+remoteJid
 ```
 
 ## Erros
