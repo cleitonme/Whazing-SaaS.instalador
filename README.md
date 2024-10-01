@@ -39,10 +39,10 @@ sudo su root
 ```
 ```bash
 apt -y update && apt -y upgrade
-...
+```
 ```bash
 apt dist-upgrade
-...
+```
 ```bash
 reboot
 ```
