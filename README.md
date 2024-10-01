@@ -87,7 +87,7 @@ Use configuração do Menu empresas para alterar nome do site e LOGOS
 
 ## Variáveis para atendimento
 
-Variáveis Sistema – tela de atendimento
+##Variáveis Sistema – tela de atendimento
 --
 primeiro nome do contato
 ```bash
@@ -142,7 +142,8 @@ nome do usuário
 {{user}}
 ---
 
-# Variveis Sistema - campanhas
+## Variveis Sistema - campanhas
+
 ```bash
 {{name}}
 ```
@@ -154,7 +155,7 @@ nome do usuário
 ```
 ```bash
 
-# Variveis TypeBOT
+## Variveis TypeBOT
 
 ```bash
 number
