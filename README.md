@@ -125,7 +125,9 @@ Nome do Atendente
 {{user}}
 ```
 Número Telefone do contato
+```bash
 {{phoneNumber}}
+```
 
 ## Erros
 Erro Backend, não consegue logar
