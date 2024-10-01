@@ -87,9 +87,17 @@ Use configuração do Menu empresas para alterar nome do site e LOGOS
 
 ## Variáveis para atendimento
 
+
+
+
+Email do Contato
+
+
+Nome
 ```bash
 {{name}}
 ```
+Saudação
 ```bash
 {{greeting}}
 ```
@@ -105,6 +113,7 @@ das 06 as 11
 00 as 06
 = "Boa madrugada!"
 
+Protocolo
 ```bash
 {{protocol}}
 ```
@@ -115,6 +124,8 @@ Nome do Atendente
 ```bash
 {{user}}
 ```
+Número Telefone do contato
+{{phoneNumber}}
 
 ## Erros
 Erro Backend, não consegue logar
