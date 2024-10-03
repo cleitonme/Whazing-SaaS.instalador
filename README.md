@@ -196,7 +196,6 @@ pm2 stop all
 ```bash
 pm2 restart all
 ```
-ou
 ```bash
 pm2 reload all
 ```
