@@ -1,46 +1,46 @@
-## Como Conectar ao Banco de dados Postgres SQL
+## Liberar SSL pelo cloudflare alternativa
 
-programa para acessar Banco de Dandos Postgres SQL
-DBeaver
+## RODAR OS COMANDOS ABAIXO ##
 
-```
-```bash
-https://dbeaver.io/download/
-```
-cria um Postgres SQL
-host = Ip da VPS
-
-porta 
-
-```
-```bash
-5432
-```
-ativar 
-Exibir todos os bacos de dados
-
-...
-banco de dados
-```
-```bash
-postgres
-```
-Nome do usuários
-
-```
-```bash
-whazing
-
-```
-Senha Banco de dados 
-Criada por padrão
 
 ```bash
-AKwWM4Qu2GRppJ7
+sudo apt-get update
 ```
-## Falhas ao conectar
-DBeaver não conecta
+```bash
+sudo apt-get install certbot
+```
 
-Se tiver ativado o firewall no instalador 
-Desative o firewall
-para DBeaver ter acesso
+```bash
+sudo apt-get install python3-certbot-dns-cloudflare
+```
+
+```bash
+sudo apt-get install python3-certbot-nginx
+```
+
+Criar esse arquivo com dados abaixo, com nano para salvar aperta Ctrl + x
+```bash
+nano cloudflare.ini
+```
+
+```bash
+dns_cloudflare_email = teu email
+dns_cloudflare_api_key = tua api
+```
+
+exemplo usando usuario deploy, casom for outro trocar dados
+```bash
+mkdir -p /home/deploy/.secrets/certbot/
+```
+
+```bash
+mv cloudflare.ini /home/deploy/.secrets/certbot
+```
+
+```bash
+sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /home/deploy/.secrets/certbot/cloudflare.ini -d frontend.seudominio.com.br -d backend.seudominio.com.br --dns-cloudflare-propagation-seconds 60
+```
+
+```bash
+sudo certbot --nginx
+```
