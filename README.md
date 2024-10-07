@@ -13,11 +13,12 @@ Versão grátis*
 - Limites da versão grátis 
 - 10 usuários
 - 2 canais
-
+- Somente suporte WhatsApp Api Bayles
 
 Versão Premium*
 
 -Não posso possui limites
+-Suporte facebook e instagram via HUB
 
 -  [Tabela de Valores versão premium e serviço de instalação](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TabeladeValores.md)
 
