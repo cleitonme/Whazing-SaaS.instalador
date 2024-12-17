@@ -325,6 +325,8 @@ system_pm2_install() {
   npm install -g pm2
   pm2 startup ubuntu -u deploy
   env PATH=\$PATH:/usr/bin pm2 startup ubuntu -u deploy --hp /home/deploy
+  echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+  sysctl -p
 EOF
 
   sleep 2

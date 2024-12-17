@@ -29,7 +29,7 @@ backend_db_create() {
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
   docker run --name redis-whazing \
                 -e TZ="America/Sao_Paulo" \
-                -p 6379:6379 \
+                -p 6383:6379 \
                 --restart=always \
                 -d redis:latest redis-server \
                 --appendonly yes \
@@ -96,7 +96,7 @@ JWT_REFRESH_SECRET=${jwt_refresh_secret}
 # Dados de conexão com o REDIS
 IO_REDIS_SERVER=localhost
 IO_REDIS_PASSWORD=${redis_pass}
-IO_REDIS_PORT=6379
+IO_REDIS_PORT=6383
 IO_REDIS_DB_SESSION=2
 
 # tempo para randomização da mensagem de horário de funcionamento
