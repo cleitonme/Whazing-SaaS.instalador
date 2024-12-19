@@ -369,6 +369,8 @@ system_snapd_install() {
 
   sudo su - root <<EOF
   apt install -y snapd
+  systemctl start snapd
+  systemctl enable snapd
   snap install core
   snap refresh core
 EOF
