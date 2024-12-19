@@ -39,6 +39,7 @@ inquiry_options
 # dependencies related
 system_update
 system_set_timezone
+system_sysctl
 system_node_install
 system_pm2_install
 system_docker_install

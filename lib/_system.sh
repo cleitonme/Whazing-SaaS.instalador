@@ -333,6 +333,29 @@ EOF
 }
 
 #######################################
+# otimizacao redis
+# Arguments:
+#   None
+#######################################
+system_sysctl() {
+  print_banner
+  printf "${WHITE} 💻 Alterando parametros sistema...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+  echo never > /sys/kernel/mm/transparent_hugepage/enabled
+  echo 'vm.swappiness = 1' >> /etc/sysctl.conf
+  sysctl -p
+EOF
+
+  sleep 2
+}
+
+
+#######################################
 # installs snapd
 # Arguments:
 #   None

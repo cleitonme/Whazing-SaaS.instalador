@@ -33,7 +33,10 @@ backend_db_create() {
                 --restart=always \
                 -d redis:latest redis-server \
                 --appendonly yes \
-                --requirepass "${redis_pass}"
+                --requirepass "${redis_pass}" \
+				--tcp-keepalive 0 \
+				--maxclients 10000
+				
  
   docker run -d --name portainer \
                 -p 9000:9000 -p 9443:9443 \
