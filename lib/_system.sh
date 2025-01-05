@@ -39,6 +39,7 @@ ufw allow 80
 ufw allow 443
 ufw allow 9000
 ufw --force enable
+echo "{\"iptables\": true}" > /etc/docker/daemon.json
 systemctl restart docker
 sed -i -e 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/g' /etc/default/ufw
 ufw reload
