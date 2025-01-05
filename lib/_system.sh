@@ -629,3 +629,27 @@ echo $deploy_password > /root/senhadeploy
 
   sleep 2
 }
+
+#######################################
+# updates whazing
+# Arguments:
+#   None
+#######################################
+update_beta() {
+  print_banner
+  printf "${WHITE} 💻 Atualizando o whazing Beta...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing
+  pm2 stop all
+  rm whazing.zip
+  wget https://github.com/cleitonme/Whazing-SaaS-Beta/raw/refs/heads/main/whazing.zip
+  unzip -o whazing.zip
+  chmod 775 /home/deploy/whazing/ -Rf
+EOF
+
+  sleep 2
+}

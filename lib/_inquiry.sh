@@ -43,6 +43,18 @@ Erro_global () {
   erro_banco
 }
 
+whazing_atualizar_beta() {
+  system_pm2_stop
+  apagar_distsrc
+  update_beta
+  backend_node_dependencies
+  backend_node_build
+  backend_db_migrate
+  system_pm2_start
+  frontend_node_dependencies
+  frontend_node_build
+}
+
 inquiry_options() {
 
   print_banner
@@ -54,6 +66,7 @@ inquiry_options() {
   printf "   [3] Ativar Firewall\n"
   printf "   [4] Desativar Firewall\n"
   printf "   [5] Erro global/pg_filenode.map\n"
+  printf "   [6] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
   printf "\n"
   read -p "> " option
 
@@ -79,6 +92,11 @@ inquiry_options() {
 	  
     5) 
       Erro_global 
+      exit
+      ;;
+	  
+    6) 
+      whazing_atualizar_beta
       exit
       ;;
 
