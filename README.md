@@ -23,7 +23,7 @@ Versão Premium*
 - Kanban
 - Integração WebHook/N8N - TypeBot - Groq - ChatGPT
 
-- Instalador versão premium
+- Instalador versão premium TypeBot, N8N e Wordpress
 
 >![print](img/instalador.png)
 
