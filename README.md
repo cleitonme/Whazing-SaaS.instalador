@@ -23,6 +23,10 @@ Versão Premium*
 - Kanban
 - Integração WebHook/N8N - TypeBot - Groq - ChatGPT
 
+- Instalador versão premium
+
+>![print](img/instalador.png)
+
 -  [Tabela de Valores versão premium e serviço de instalação](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TabeladeValores.md)
 
 ## CRIAR SUBDOMINIO E APONTAR PARA O IP DA SUA VPS
