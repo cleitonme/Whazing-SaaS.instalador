@@ -177,9 +177,8 @@ git_update() {
   sudo su - deploy <<EOF
   cd /home/deploy/whazing
   pm2 stop all
-  git stash clear
-  git stash
-  git pull
+  rm whazing.zip
+  wget https://github.com/cleitonme/Whazing-SaaS/raw/refs/heads/main/whazing.zip
   unzip -o whazing.zip
   chmod 775 /home/deploy/whazing/ -Rf
 EOF
