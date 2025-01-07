@@ -25,7 +25,6 @@ Versão Premium*
 
 - Instalador versão premium TypeBot, N8N e Wordpress
 
->![print](img/instalador.png)
 
 -  [Tabela de Valores versão premium e serviço de instalação](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TabeladeValores.md)
 
