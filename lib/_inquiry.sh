@@ -105,6 +105,25 @@ inquiry_options() {
       exit
       ;;
 	  
+    7) 
+      Recurso_Premium
+      exit
+      ;;
+	  
+    8) 
+      Recurso_Premium
+      exit
+      ;;
+    9) 
+      Recurso_Premium
+      exit
+      ;;
+	  
+    10) 
+      Recurso_Premium
+      exit
+      ;;
+	    
     11) 
       whazing_atualizar_beta
       exit
