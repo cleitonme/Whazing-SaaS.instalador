@@ -66,7 +66,12 @@ inquiry_options() {
   printf "   [3] Ativar Firewall\n"
   printf "   [4] Desativar Firewall\n"
   printf "   [5] Erro global/pg_filenode.map\n"
-  printf "   [6] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
+  printf "   [6] Instalar N8N - necessario 1 dominio\n"
+  printf "   [7] Instalar TypeBot - necessario 4 dominios\n"
+  printf "   [8] Instalar Wordpress - necessario 1 dominio\n"
+  printf "   [9] Dominio com erro SSL\n"
+  printf "   [10] Liberar acesso portainer dominio SSL - necessario 1 dominio\n"
+  printf "   [11] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
   printf "\n"
   read -p "> " option
 
@@ -96,6 +101,11 @@ inquiry_options() {
       ;;
 	  
     6) 
+      Recurso_Premium
+      exit
+      ;;
+	  
+    11) 
       whazing_atualizar_beta
       exit
       ;;

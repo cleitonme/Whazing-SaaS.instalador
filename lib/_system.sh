@@ -652,3 +652,20 @@ EOF
 
   sleep 2
 }
+
+Recurso_Premium() {
+
+
+  print_banner
+  printf "${GREEN} Recurso exclusivo da versão premium...${NC}"
+  printf "${CYAN_LIGHT}";
+  printf "\n\n"
+  printf "\n"
+  printf "Adquira já (48) 99941-6725"
+
+  printf "\n"
+  printf "\n"
+  printf "${NC}";
+
+  sleep 30
+}
