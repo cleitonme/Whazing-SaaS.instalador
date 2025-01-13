@@ -22,6 +22,14 @@ Versão Premium*
 - Suporte facebook e instagram via HUB
 - Kanban
 - Integração WebHook/N8N - TypeBot - Groq - ChatGPT
+- Transcrição de audio
+- Avaliação de atendimento
+- Geração PDF atendimento
+- Relatorio de tickets
+- Anotações em tickets
+- Mensagens separadas por filas
+- Transferir atendimento para ChatBot
+- Retirada mensagem "Enviado via Whazing" no modulo campanhas
 
 - Instalador versão premium TypeBot, N8N e Wordpress
 
