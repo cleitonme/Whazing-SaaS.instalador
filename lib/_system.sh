@@ -154,6 +154,9 @@ apagar_distsrc() {
   sudo su - root <<EOF
   cd /home/deploy/whazing/backend
   rm dist/ -Rf
+  rm node_modules/ -Rf
+  rm package.json -Rf
+  rm package-lock.json -Rf
   cd /home/deploy/whazing/frontend  
   rm dist/ -Rf
   rm src/ -Rf
