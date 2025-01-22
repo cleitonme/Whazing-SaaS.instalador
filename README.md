@@ -81,6 +81,15 @@ sudo chmod +x ./whazinginstalador/whazing
 ```bash
 cd ./whazinginstalador
 ```
+
+## Importante alterar senhas padrão para evitar ataques
+
+Editar dados com seus dados, com nano para salvar aperta Ctrl + x
+Ou com acesso vps pelo aplicativo que preferir
+```bash
+nano config
+```
+
 ```bash
 sudo ./whazing
 ```
