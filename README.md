@@ -23,6 +23,7 @@ Versão Premium*
 - Kanban
 - Integração WebHook/N8N - TypeBot - Groq - ChatGPT
 - Transcrição de audio
+- Tarefas
 - Avaliação de atendimento
 - Geração PDF atendimento
 - Relatorio de tickets
