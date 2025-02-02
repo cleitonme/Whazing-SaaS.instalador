@@ -24,6 +24,15 @@ echo "Sistema compatível detectado: $OS_NAME $OS_VERSION"
 echo "Continuando instalador..."
 sleep 1
 
+# Verifica se o sistema está aguardando reinicialização
+if [ -f /var/run/reboot-required ]; then
+    echo "⚠️  O sistema precisa ser reiniciado antes de executar este script."
+    echo "❌ Saindo..."
+    exit 1
+fi
+
+echo "✅ Nenhuma reinicialização pendente. Continuando a execução..."
+
 # reset shell colors
 tput init
 
