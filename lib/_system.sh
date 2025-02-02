@@ -15,7 +15,10 @@ system_create_user() {
   sleep 2
 
   sudo su - root <<EOF
-  useradd -m -p $(openssl passwd $deploy_password) -s /bin/bash -G sudo deploy
+  useradd -m -s /bin/bash -G sudo deploy 2>/dev/null || echo "Usuário já existe, continuando..."
+  echo "deploy:$deploy_password" | chpasswd
+  passwd -u deploy 2>/dev/null
+  echo "deploy ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/deploy > /dev/null
   usermod -aG sudo deploy
 EOF
 
