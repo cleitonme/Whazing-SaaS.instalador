@@ -2,6 +2,28 @@
 
 git pull
 
+# Verifica se o arquivo /etc/os-release existe
+if [[ -f /etc/os-release ]]; then
+    # Carrega as informações do sistema
+    . /etc/os-release
+    OS_NAME=$ID
+    OS_VERSION=${VERSION_ID//\"/}  # Remove aspas se existirem
+else
+    echo "Erro: Não foi possível detectar a versão do sistema operacional."
+    exit 1
+fi
+
+# Verifica se o sistema é Ubuntu e se a versão é compatível
+if [[ "$OS_NAME" != "ubuntu" || ("$OS_VERSION" != "20.04" && "$OS_VERSION" != "22.04") ]]; then
+    echo "Erro: Este script só pode ser executado no Ubuntu 20.04 ou 22.04."
+    echo "Sistema detectado: $OS_NAME $OS_VERSION"
+    exit 1
+fi
+
+echo "Sistema compatível detectado: $OS_NAME $OS_VERSION"
+echo "Continuando instalador..."
+sleep 1
+
 # reset shell colors
 tput init
 
