@@ -1,5 +1,6 @@
-deploy_password=AKwWM4Qu2GRppJ7
-pg_pass=AKwWM4Qu2GRppJ7
-redis_pass=AKwWM4Qu2GRppJ7
-rabbit_pass=AKwWM4Qu2GRppJ7
+senha=AKwWM4Qu2GRppJ7
+deploy_password=${senha}
+pg_pass=${senha}
+redis_pass=${senha}
+rabbit_pass=${senha}
 deploy_email=cleitonme@gmail.com
