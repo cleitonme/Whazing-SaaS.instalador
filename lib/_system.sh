@@ -616,8 +616,6 @@ echo $deploy_password > /root/senhadeploy
   printf "\n"
   printf "URL back: https://$backend_domain"
   printf "\n"
-  printf "Acesso ao Portainer: http://$frontend_domain:9000"
-  printf "\n"
   printf "Senha Usuario deploy: $deploy_password"
   printf "\n"
   printf "Usuario do Banco de Dados: whazing"
