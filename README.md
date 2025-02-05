@@ -13,13 +13,13 @@ Versão grátis*
 - Limites da versão grátis 
 - 10 usuários
 - 2 canais
-- Somente suporte WhatsApp Api Bayles
+- Suporte WhatsApp Api Bayles
+- Suporte facebook e Instagram  e WebChat - VIA HUB - Necessario pagar mensalidade por canal duvidas (48) 9941-6725
 - Verificar premium abaixo para saber diferenças
 
 Versão Premium*
 
 - Não possui limites
-- Suporte facebook e instagram via HUB
 - Kanban
 - Integração WebHook/N8N - TypeBot - Groq - ChatGPT
 - Transcrição de audio
