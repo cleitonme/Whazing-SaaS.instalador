@@ -86,6 +86,9 @@ cd ./whazinginstalador
 
 Editar dados com seus dados, com nano para salvar aperta Ctrl + x
 Ou com acesso vps pelo aplicativo que preferir
+
+- Use somente letra e numeros, não use caracteres especiais
+
 ```bash
 nano config
 ```
