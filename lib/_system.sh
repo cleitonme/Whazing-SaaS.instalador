@@ -626,8 +626,6 @@ echo $deploy_password > /root/senhadeploy
   printf "\n"
   printf "Senha do Redis: $redis_pass"
   printf "\n"
-  printf "Senha do Rabbit: $rabbit_pass"
-  printf "\n"
   printf "${NC}";
 
   sleep 2
