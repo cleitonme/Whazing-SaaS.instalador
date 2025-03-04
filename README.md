@@ -1,12 +1,11 @@
 [![Grupo do WhatsApp](https://img.shields.io/badge/WhatsApp-Grupo%20Whazing-brightgreen.svg)](https://chat.whatsapp.com/KAk11eaAfRu6Bp13wQX6MB)
 
+# Whazing SaaS
+
 **IMPORTANTE**: 
 
-- [Termos de USO](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TermosdeUso.md)
-
+- [Termos de Uso](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TermosdeUso.md)
 - [Contrato de Licença](https://github.com/cleitonme/Whazing-SaaS/blob/main/LICENSE)
-
-
 
 Versão grátis*
 
@@ -19,7 +18,7 @@ Versão grátis*
 
 Versão Premium*
 
-- Não possui limites
+- Sem limites de usuários e canais
 - Kanban
 - Integração WebHook/N8N - TypeBot - Groq - ChatGPT - DeepSeek
 - Transcrição de audio
@@ -45,20 +44,17 @@ Ubuntu 20 com minimo 8GB memoria
 2 dns do backend e do frontend
 
 
-## CHECAR PROPAGAÇÃO DO DOMÍNIO
+### Checar Propagação do Domínio
 
-https://dnschecker.org/
+Utilize [dnschecker.org](https://dnschecker.org/) para verificar a propagação.
 
 ## RODAR OS COMANDOS ABAIXO PARA INSTALAR
 
-para evitar erros recomendados atualizar sistema e apos atualizar reniciar para evitar erros
+Para evitar erros, recomenda-se atualizar o sistema e reiniciar antes da instalação:
+
 ```bash
 sudo su root
-```
-```bash
 apt -y update && apt -y upgrade
-```
-```bash
 reboot
 ```
  
@@ -156,6 +152,6 @@ WHAZING
 
 ## Consultoria particular
 
-Para consultoria particular chamar (será cobrado por isso) 48 999416725 
+Para consultoria particular (serviço cobrado), entre em contato: (48) 99941-6725.
 
 Versão api em bayles
