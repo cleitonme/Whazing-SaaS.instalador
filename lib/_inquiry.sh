@@ -21,6 +21,7 @@ get_urls() {
 
 whazing_atualizar() {
   system_pm2_stop
+  arruma_permissao
   apagar_distsrc
   git_update
   backend_node_dependencies
@@ -45,6 +46,7 @@ Erro_global () {
 
 whazing_atualizar_beta() {
   system_pm2_stop
+  arruma_permissao
   apagar_distsrc
   update_beta
   backend_node_dependencies

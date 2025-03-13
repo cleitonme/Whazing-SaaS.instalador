@@ -147,6 +147,21 @@ EOF
   sleep 2
 }
 
+arruma_permissao() {
+  print_banner
+  printf "${WHITE} 💻 Garantindo permissões usuario deploy...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  chown deploy.deploy /home/deploy/whazing -Rf
+  
+EOF
+
+  sleep 2
+}
+
 apagar_distsrc() {
   print_banner
   printf "${WHITE} 💻 Apagando arquivos versao anterior${GRAY_LIGHT}"
