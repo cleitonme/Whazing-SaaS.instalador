@@ -58,6 +58,13 @@ Para evitar erros, recomenda-se atualizar o sistema e reiniciar antes da instala
 
 ```bash
 sudo su root
+```
+
+```bash
+apt install software-properties-common
+```
+
+```bash
 apt -y update && apt -y upgrade
 reboot
 ```
