@@ -49,6 +49,9 @@ Ubuntu 20 com minimo 8GB memoria
 
 Utilize [dnschecker.org](https://dnschecker.org/) para verificar a propagação.
 
+- Caso use cloudflare não ativar proxy(nuvem laranja)
+- Ao verificar dnschecker.org deve aparecer ip da sua vps somente em todas validações
+
 ## RODAR OS COMANDOS ABAIXO PARA INSTALAR
 
 Para evitar erros, recomenda-se atualizar o sistema e reiniciar antes da instalação:
