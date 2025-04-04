@@ -2,5 +2,4 @@ senha=AKwWM4Qu2GRppJ7
 deploy_password=${senha}
 pg_pass=${senha}
 redis_pass=${senha}
-rabbit_pass=${senha}
 deploy_email=cleitonme@gmail.com
