@@ -118,6 +118,9 @@ cd /root
 cd ./whazinginstalador
 ```
 ```bash
+chmod +x whazing
+```
+```bash
 sudo ./whazing
 ```
 
