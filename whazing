@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git stash clear
+git stash
 git pull
 
 # Verifica se o arquivo /etc/os-release existe
