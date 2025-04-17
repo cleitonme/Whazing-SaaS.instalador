@@ -104,7 +104,6 @@ frontend_start_pm2
 frontend_nginx_setup
 
 # network related
-criar_cron
 system_nginx_conf
 system_nginx_restart
 system_certbot_setup
