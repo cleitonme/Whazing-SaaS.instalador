@@ -108,4 +108,5 @@ system_nginx_conf
 system_nginx_restart
 system_certbot_setup
 system_docker_restart
+criar_cron
 system_success
