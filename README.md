@@ -97,7 +97,7 @@ Ou com acesso vps pelo aplicativo que preferir
 - Use somente letras e numeros, não use caracteres especiais
 - Não prescisa alterar outros campos caso queria usar mesma senha todos serviços somente alterar primeira linha
 senha=AKwWM4Qu2GRppJ7
-- Use email gmail para garantir não vai ter erro certificado
+- Configure timezone se necessário
 
 ```bash
 nano config
