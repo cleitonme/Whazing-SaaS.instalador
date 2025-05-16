@@ -20,20 +20,20 @@ backend_db_create() {
   chown -R 999:999 /data
   docker run --name postgresql \
                 -e POSTGRES_USER=whazing \
-                -e POSTGRES_PASSWORD=${pg_pass} \
-				-e TZ="America/Sao_Paulo" \
+                -e POSTGRES_PASSWORD=${senha} \
+				-e TZ=${timezonetext} \
                 -p 5432:5432 \
                 --restart=always \
                 -v /data:/var/lib/postgresql/data \
                 -d postgres
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
   docker run --name redis-whazing \
-                -e TZ="America/Sao_Paulo" \
+                -e TZ=${timezonetext} \
                 -p 6383:6379 \
                 --restart=always \
                 -d redis:latest redis-server \
                 --appendonly yes \
-                --requirepass "${redis_pass}" \
+                --requirepass "${senha}" \
 				--tcp-keepalive 0 \
 				--maxclients 10000
 				
@@ -86,10 +86,10 @@ PORT=3000
 # conexão com o banco de dados
 DB_DIALECT=postgres
 DB_PORT=5432
-DB_TIMEZONE=-03:00
+DB_TIMEZONE=${timezonenumber}
 POSTGRES_HOST=localhost
 POSTGRES_USER=whazing
-POSTGRES_PASSWORD=${pg_pass}
+POSTGRES_PASSWORD=${senha}
 POSTGRES_DB=postgres
 
 # Chaves para criptografia do token jwt
@@ -98,7 +98,7 @@ JWT_REFRESH_SECRET=${jwt_refresh_secret}
 
 # Dados de conexão com o REDIS
 IO_REDIS_SERVER=localhost
-IO_REDIS_PASSWORD=${redis_pass}
+IO_REDIS_PASSWORD=${senha}
 IO_REDIS_PORT=6383
 IO_REDIS_DB_SESSION=2
 

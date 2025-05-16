@@ -16,7 +16,7 @@ system_create_user() {
 
   sudo su - root <<EOF
   useradd -m -s /bin/bash -G sudo deploy 2>/dev/null || echo "Usuário já existe, continuando..."
-  echo "deploy:$deploy_password" | chpasswd
+  echo "deploy:$senha" | chpasswd
   passwd -u deploy 2>/dev/null
   echo "deploy ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/deploy > /dev/null
   usermod -aG sudo deploy
@@ -100,7 +100,7 @@ system_set_timezone() {
   sleep 2
 
   sudo su - root <<EOF
-  timedatectl set-timezone America/Sao_Paulo
+  timedatectl set-timezone ${timezonetext}
 EOF
 
   sleep 2
@@ -534,7 +534,7 @@ system_certbot_setup() {
   admin_domain=$(echo "${admin_url/https:\/\/}")
 
   sudo su - root <<EOF
-  certbot -m $deploy_email \
+  certbot -m cleitonme@gmail.com \
           --nginx \
           --agree-tos \
           --non-interactive \
@@ -616,7 +616,7 @@ EOF
 #######################################
 system_success() {
 
-echo $deploy_password > /root/senhadeploy
+echo $senha > /root/senhadeploy
 
   print_banner
   printf "${GREEN} 💻 Instalação concluída com Sucesso...${NC}"
@@ -631,15 +631,15 @@ echo $deploy_password > /root/senhadeploy
   printf "\n"
   printf "URL back: https://$backend_domain"
   printf "\n"
-  printf "Senha Usuario deploy: $deploy_password"
+  printf "Senha Usuario deploy: $senha"
   printf "\n"
   printf "Usuario do Banco de Dados: whazing"
   printf "\n"
   printf "Nome do Banco de Dados: postgres"
   printf "\n"
-  printf "Senha do Banco de Dados: $pg_pass"
+  printf "Senha do Banco de Dados: $senha"
   printf "\n"
-  printf "Senha do Redis: $redis_pass"
+  printf "Senha do Redis: $senha"
   printf "\n"
   printf "${NC}";
 
