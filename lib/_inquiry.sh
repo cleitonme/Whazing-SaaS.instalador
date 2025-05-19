@@ -68,6 +68,12 @@ Erro_ssl () {
   system_certbot_erro_setup
 }
 
+migrar_docker () {
+  preparacao_migrar_docker
+  instalacao_firewall
+  Removido_Antigo
+}
+
 inquiry_options() {
 
   print_banner
@@ -87,6 +93,7 @@ inquiry_options() {
   printf "   [9] Dominio com erro SSL\n"
   printf "   [10] Liberar acesso portainer dominio SSL - necessario 1 dominio\n"
   printf "   [11] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
+  printf "   [12] Migração instalação antiga(para quem instalou sistema antes 19/05/25)\n"
   printf "\n"
   read -p "> " option
 
@@ -142,6 +149,11 @@ inquiry_options() {
 	    
     11) 
       whazing_atualizar_beta
+      exit
+      ;;
+
+    12) 
+      migrar_docker
       exit
       ;;
 

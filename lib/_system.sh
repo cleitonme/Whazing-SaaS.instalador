@@ -841,3 +841,34 @@ system_success_portainer() {
 
   sleep 2
 }
+
+preparacao_migrar_docker() {
+  print_banner
+  printf "${WHITE} 💻 Removendo modelo antigo...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  pm2 delete all
+
+EOF
+
+  sleep 2
+}
+
+Removido_Antigo() {
+
+  print_banner
+  printf "${GREEN} Pronto removemos modelo antigo...${NC}"
+  printf "${CYAN_LIGHT}";
+  printf "\n\n"
+  printf "\n"
+  printf "Agora pelo instalador use opção 2 para versão estavel ou 11 para versão beta"
+
+  printf "\n"
+  printf "\n"
+  printf "${NC}";
+
+  sleep 30
+}
