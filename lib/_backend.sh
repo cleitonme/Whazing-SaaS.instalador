@@ -383,7 +383,7 @@ backend_docker_update_beta() {
 
 EOF
 
-  sleep 2
+  sleep 1
 }
 
 backend_docker_update() {
