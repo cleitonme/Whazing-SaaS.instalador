@@ -164,6 +164,9 @@ backend_criar_diretorios() {
   cd whazing
   mkdir frontend
   mkdir backend
+  cd backend
+  mkdir logs
+  mkdir public
 EOF
 
   sleep 2

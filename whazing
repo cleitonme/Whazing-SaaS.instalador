@@ -85,6 +85,7 @@ system_create_user
 # backend related
 system_set_user_mod
 backend_criar_diretorios
+system_unzip_logos
 backend_set_env
 backend_db_create
 system_docker_restart
