@@ -34,8 +34,8 @@ get_portainer_url() {
 }
 
 whazing_atualizar() {
-  backend_docker_update
-  frontend_docker_update
+  backend_docker_start
+  frontend_docker_start
 }
 
 ativar_firewall () {
@@ -70,6 +70,7 @@ Erro_ssl () {
 
 migrar_docker () {
   preparacao_migrar_docker
+  apagar_nao_usado
   instalacao_firewall
   Removido_Antigo
 }

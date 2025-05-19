@@ -872,3 +872,29 @@ Removido_Antigo() {
 
   sleep 30
 }
+
+apagar_nao_usado() {
+  print_banner
+  printf "${WHITE} 💻 Apagando arquivos nao sera mais usados${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  cd /home/deploy/whazing/
+  rm whazing.zip -Rf
+  rm docs -Rf
+  rm screenshots -Rf
+  rm site -Rf
+  cd /home/deploy/whazing/backend
+  rm dist/ -Rf
+  rm node_modules/ -Rf
+  rm package.json -Rf
+  rm package-lock.json -Rf
+  cd /home/deploy/whazing/frontend  
+  rm dist/ -Rf
+  rm src/ -Rf
+EOF
+
+  sleep 2
+}

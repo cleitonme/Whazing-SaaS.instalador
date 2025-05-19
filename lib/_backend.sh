@@ -167,6 +167,7 @@ backend_criar_diretorios() {
   cd backend
   mkdir logs
   mkdir public
+  mkdir private
 EOF
 
   sleep 2
@@ -300,11 +301,15 @@ backend_docker_start() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
+  docker stop whazing-backend
+  docker rm whazing-backend
+  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
   docker run -d \
   --name whazing-backend \
   --network host \
   -p 3000:3000 \
   --restart=always \
+  -v /home/deploy/whazing/backend/private:/app/private \
   -v /home/deploy/whazing/backend/public:/app/public \
   -v /home/deploy/whazing/backend/logs:/app/logs \
   -v /home/deploy/whazing/backend/.env:/app/.env \
@@ -375,6 +380,7 @@ backend_docker_update_beta() {
   --network host \
   -p 3000:3000 \
   --restart=always \
+  -v /home/deploy/whazing/backend/private:/app/private \
   -v /home/deploy/whazing/backend/public:/app/public \
   -v /home/deploy/whazing/backend/logs:/app/logs \
   -v /home/deploy/whazing/backend/.env:/app/.env \
@@ -384,32 +390,4 @@ backend_docker_update_beta() {
 EOF
 
   sleep 0
-}
-
-backend_docker_update() {
-  print_banner
-  printf "${WHITE} 💻 Baixando imagem (backend)...${GRAY_LIGHT}"
-  printf "\n\n"
-
-  sleep 2
-
-  sudo su - deploy <<EOF
-  cd /home/deploy/whazing/backend
-  docker stop whazing-backend
-  docker rm whazing-backend
-  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
-  docker run -d \
-  --name whazing-backend \
-  --network host \
-  -p 3000:3000 \
-  --restart=always \
-  -v /home/deploy/whazing/backend/public:/app/public \
-  -v /home/deploy/whazing/backend/logs:/app/logs \
-  -v /home/deploy/whazing/backend/.env:/app/.env \
-  whazing/whazing-backend:latest
-
-
-EOF
-
-  sleep 2
 }
