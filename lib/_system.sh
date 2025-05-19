@@ -46,7 +46,7 @@ systemctl restart ufw
 
 EOF
 
-  sleep 60
+  sleep 5
 }
 
 iniciar_firewall() {
@@ -637,7 +637,7 @@ system_docker_restart() {
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
 EOF
 
-  sleep 60
+  sleep 5
 }
 
 
