@@ -93,7 +93,7 @@ iniciar_firewall() {
   
 EOF
 
-  sleep 2
+  sleep 1
 }
 
 parar_firewall() {
