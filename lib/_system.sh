@@ -727,3 +727,23 @@ Recurso_Premium() {
 
   sleep 30
 }
+
+system_certbot_erro_setup() {
+  print_banner
+  printf "${WHITE} 💻 Solicitando certificado...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  renovar_domain=$(echo "${renovar_url/https:\/\/}")
+
+  sudo su - root <<EOF
+  certbot -m cleitonme@gmail.com \
+          --nginx \
+          --agree-tos \
+          --non-interactive \
+          --domains $renovar_domain
+EOF
+
+  sleep 20
+}

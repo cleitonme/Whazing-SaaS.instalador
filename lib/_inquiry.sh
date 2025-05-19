@@ -19,6 +19,13 @@ get_urls() {
   get_backend_url
 }
 
+get_renovar_url() {
+  print_banner
+  printf "${WHITE} 💻 Digite o domínio com erro SSL:${GRAY_LIGHT}"
+  printf "\n\n"
+  read -p "> " renovar_url
+}
+
 whazing_atualizar() {
   system_pm2_stop
   arruma_permissao
@@ -55,6 +62,11 @@ whazing_atualizar_beta() {
   system_pm2_start
   frontend_node_dependencies
   frontend_node_build
+}
+
+Erro_ssl () {
+  get_renovar_url
+  system_certbot_erro_setup
 }
 
 inquiry_options() {
@@ -118,7 +130,7 @@ inquiry_options() {
       ;;
 
     9) 
-      Recurso_Premium
+      Erro_ssl
       exit
       ;;
 	  
