@@ -68,8 +68,7 @@ Portainer_ssl () {
 
 whazing_atualizar_beta() {
   backend_docker_update_beta
-  backend_docker_update_beta
-  backend_docker_update_beta
+  frontend_docker_update_beta
 }
 
 Erro_ssl () {
