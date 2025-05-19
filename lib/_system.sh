@@ -30,14 +30,14 @@ instalacao_firewall() {
   print_banner
   printf "${WHITE} 💻 Agora, vamos instalar e ativar firewall UFW...${GRAY_LIGHT}"
   printf "\n\n"
-
   sleep 2
 
-  sudo su - root <<EOF
+  sudo bash -c '
+
 # Impede que Docker interfira no iptables (respeita UFW)
-echo '{
-  "iptables": false
-}' > /etc/docker/daemon.json
+echo "{
+  \"iptables\": false
+}" > /etc/docker/daemon.json
 
 # Reinicia Docker para aplicar a configuração
 systemctl restart docker
@@ -47,27 +47,27 @@ ufw default deny incoming
 ufw default allow outgoing
 
 # Permite portas essenciais
-ufw allow ssh       # Porta 22 geralmente
+ufw allow ssh
 ufw allow 22/tcp
-ufw allow 80/tcp    # HTTP
-ufw allow 443/tcp   # HTTPS
-ufw allow 9000/tcp  # Exemplo de app (como Portainer ou frontend)
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow 9000/tcp
 
 # Corrige o FORWARD_POLICY
-sed -i 's/^DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/' /etc/default/ufw
+sed -i "s/^DEFAULT_FORWARD_POLICY=\"DROP\"/DEFAULT_FORWARD_POLICY=\"ACCEPT\"/" /etc/default/ufw
 
-# Adiciona regra NAT para containers Docker (rede bridge)
-ufw_before_rules="/etc/ufw/before.rules"
-if ! grep -q "POSTROUTING -s 172.17.0.0/16" "$ufw_before_rules"; then
-cat <<EOF > "$ufw_before_rules.tmp"
+# Adiciona regra NAT para containers Docker
+UFW_BEFORE_RULES="/etc/ufw/before.rules"
+if ! grep -q "POSTROUTING -s 172.17.0.0/16" "$UFW_BEFORE_RULES"; then
+  TMPFILE=$(mktemp)
+  cat <<EORULES > "$TMPFILE"
 *nat
 :POSTROUTING ACCEPT [0:0]
 -A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
 COMMIT
-EOF
-
-cat "$ufw_before_rules" >> "$ufw_before_rules.tmp"
-mv "$ufw_before_rules.tmp" "$ufw_before_rules"
+EORULES
+  cat "$UFW_BEFORE_RULES" >> "$TMPFILE"
+  mv "$TMPFILE" "$UFW_BEFORE_RULES"
 fi
 
 # Recarrega UFW com novas regras
@@ -75,11 +75,11 @@ ufw --force enable
 ufw reload
 systemctl restart ufw
 
-
-EOF
+  '
 
   sleep 5
 }
+
 
 iniciar_firewall() {
   print_banner
