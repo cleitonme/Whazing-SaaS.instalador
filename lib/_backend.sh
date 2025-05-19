@@ -192,6 +192,23 @@ EOF
   sleep 2
 }
 
+system_unzip_logos() {
+  print_banner
+  printf "${WHITE} 💻 Fazendo download logos...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing
+  wget https://github.com/cleitonme/Whazing-SaaS/raw/refs/heads/main/logos.zip
+  unzip -o logos.zip
+  chmod 775 /home/deploy/whazing/ -Rf
+EOF
+
+  sleep 2
+}
+
 #######################################
 # compiles backend code
 # Arguments:

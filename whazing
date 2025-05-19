@@ -72,7 +72,6 @@ system_update
 system_set_timezone
 system_puppeteerdocker_dependencies
 system_sysctl
-system_otimizacao_system
 system_docker_install
 instalacao_firewall
 system_snapd_install
@@ -89,10 +88,10 @@ system_unzip_logos
 backend_set_env
 backend_db_create
 system_docker_restart
-backend_docker_start
 
 # frontend related
 frontend_set_env
+backend_docker_start
 frontend_docker_start
 backend_nginx_setup
 frontend_nginx_setup
