@@ -301,9 +301,9 @@ backend_docker_start() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
+  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
   docker stop whazing-backend
   docker rm whazing-backend
-  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
   docker run -d \
   --name whazing-backend \
   --network host \
@@ -372,9 +372,9 @@ backend_docker_update_beta() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
+  docker pull --disable-content-trust=1 whazing/whazing-backend:beta
   docker stop whazing-backend
   docker rm whazing-backend
-  docker pull --disable-content-trust=1 whazing/whazing-backend:beta
   docker run -d \
   --name whazing-backend \
   --network host \
