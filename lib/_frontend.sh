@@ -161,7 +161,6 @@ frontend_docker_start() {
   cd /home/deploy/whazing/frontend
   docker run -d \
   --name whazing-frontend \
-  --network host \
   -p 3333:8087 \
   --restart=always \
   -v /home/deploy/whazing/frontend/.env:/app/.env \
