@@ -34,11 +34,43 @@ instalacao_firewall() {
   sleep 2
 
   sudo su - root <<EOF
-ufw allow ssh
-ufw allow 22
-ufw allow 80
-ufw allow 443
-ufw allow 9000
+# Impede que Docker interfira no iptables (respeita UFW)
+echo '{
+  "iptables": false
+}' > /etc/docker/daemon.json
+
+# Reinicia Docker para aplicar a configuração
+systemctl restart docker
+
+# Configura política padrão do UFW
+ufw default deny incoming
+ufw default allow outgoing
+
+# Permite portas essenciais
+ufw allow ssh       # Porta 22 geralmente
+ufw allow 22/tcp
+ufw allow 80/tcp    # HTTP
+ufw allow 443/tcp   # HTTPS
+ufw allow 9000/tcp  # Exemplo de app (como Portainer ou frontend)
+
+# Corrige o FORWARD_POLICY
+sed -i 's/^DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/' /etc/default/ufw
+
+# Adiciona regra NAT para containers Docker (rede bridge)
+ufw_before_rules="/etc/ufw/before.rules"
+if ! grep -q "POSTROUTING -s 172.17.0.0/16" "$ufw_before_rules"; then
+cat <<EOF > "$ufw_before_rules.tmp"
+*nat
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
+COMMIT
+EOF
+
+cat "$ufw_before_rules" >> "$ufw_before_rules.tmp"
+mv "$ufw_before_rules.tmp" "$ufw_before_rules"
+fi
+
+# Recarrega UFW com novas regras
 ufw --force enable
 ufw reload
 systemctl restart ufw
