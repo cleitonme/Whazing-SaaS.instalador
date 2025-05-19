@@ -894,6 +894,9 @@ apagar_nao_usado() {
   cd /home/deploy/whazing/frontend  
   rm dist/ -Rf
   rm src/ -Rf
+  rm node_modules/ -Rf
+  rm package.json -Rf
+  rm package-lock.json -Rf
 EOF
 
   sleep 2
