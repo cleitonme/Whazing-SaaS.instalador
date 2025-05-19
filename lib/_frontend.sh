@@ -183,7 +183,7 @@ frontend_docker_update_beta() {
   cd /home/deploy/whazing/frontend
   docker stop whazing-frontend
   docker rm whazing-frontend
-  docker pull --quiet --disable-content-trust=1 whazing/whazing-frontend:beta
+  docker pull --disable-content-trust=1 whazing/whazing-frontend:beta
   docker run -d \
   --name whazing-frontend \
   -p 3333:8087 \
@@ -209,7 +209,7 @@ frontend_docker_update() {
   cd /home/deploy/whazing/frontend
   docker stop whazing-frontend
   docker rm whazing-frontend
-  docker pull --quiet --disable-content-trust=1 whazing/whazing-frontend:latest
+  docker pull --disable-content-trust=1 whazing/whazing-frontend:latest
   docker run -d \
   --name whazing-frontend \
   -p 3333:8087 \

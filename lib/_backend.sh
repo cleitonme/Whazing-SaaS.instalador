@@ -369,7 +369,7 @@ backend_docker_update_beta() {
   cd /home/deploy/whazing/backend
   docker stop whazing-backend
   docker rm whazing-backend
-  docker pull --quiet --disable-content-trust=1 whazing/whazing-backend:beta
+  docker pull --disable-content-trust=1 whazing/whazing-backend:beta
   docker run -d \
   --name whazing-backend \
   --network host \
@@ -397,7 +397,7 @@ backend_docker_update() {
   cd /home/deploy/whazing/backend
   docker stop whazing-backend
   docker rm whazing-backend
-  docker pull --quiet --disable-content-trust=1 whazing/whazing-backend:latest
+  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
   docker run -d \
   --name whazing-backend \
   --network host \
