@@ -164,7 +164,7 @@ frontend_docker_start() {
   --network host \
   -p 3333:8087 \
   --restart=always \
-  -v $(pwd)/.env:/app/.env \
+  -v /home/deploy/whazing/frontend/.env:/app/.env \
   whazing/whazing-frontend:latest
 
 

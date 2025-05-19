@@ -288,9 +288,9 @@ backend_docker_start() {
   --network host \
   -p 3000:3000 \
   --restart=always \
-  -v $(pwd)/public:/app/public \
-  -v $(pwd)/logs:/app/logs \
-  -v $(pwd)/.env:/app/.env \
+  -v /home/deploy/whazing/backend/public:/app/public \
+  -v /home/deploy/whazing/backend/logs:/app/logs \
+  -v /home/deploy/whazing/backend/.env:/app/.env \
   whazing/whazing-backend:latest
 
 
