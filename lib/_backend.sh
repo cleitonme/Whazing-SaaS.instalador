@@ -92,6 +92,8 @@ POSTGRES_USER=whazing
 POSTGRES_PASSWORD=${senha}
 POSTGRES_DB=postgres
 
+TZ=${timezonetext}
+
 # Chaves para criptografia do token jwt
 JWT_SECRET=${jwt_secret}
 JWT_REFRESH_SECRET=${jwt_refresh_secret}
