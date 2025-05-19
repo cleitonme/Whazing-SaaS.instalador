@@ -747,3 +747,73 @@ EOF
 
   sleep 20
 }
+
+portainer_nginx_setup() {
+  print_banner
+  printf "${WHITE} 💻 Configurando nginx (portainer)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  portainer_hostname=$(echo "${portainer_url/https:\/\/}")
+
+sudo su - root << EOF
+
+cat > /etc/nginx/sites-available/portainer << 'END'
+server {
+  server_name $portainer_hostname;
+  
+  location / {
+    proxy_pass http://127.0.0.1:9000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_cache_bypass \$http_upgrade;
+  }
+}
+END
+
+ln -s /etc/nginx/sites-available/portainer /etc/nginx/sites-enabled
+EOF
+
+  sleep 2
+}
+
+system_certbot_portainer_setup() {
+  print_banner
+  printf "${WHITE} 💻 Configurando certbot portainer...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  portainer_domain=$(echo "${portainer_url/https:\/\/}")
+
+  sudo su - root <<EOF
+  certbot -m cleitonme@gmail.com \
+          --nginx \
+          --agree-tos \
+          --non-interactive \
+          --domains $portainer_domain
+EOF
+
+  sleep 2
+}
+
+system_success_portainer() {
+
+  print_banner
+  printf "${GREEN} 💻 Instalação concluída...${NC}"
+  printf "${CYAN_LIGHT}";
+  printf "\n\n"
+  printf "\n"
+  printf "URL Portainer: https://$portainer_url"
+  printf "\n"
+  printf "\n"
+  printf "${NC}";
+
+  sleep 2
+}

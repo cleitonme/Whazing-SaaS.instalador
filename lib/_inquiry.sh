@@ -26,6 +26,13 @@ get_renovar_url() {
   read -p "> " renovar_url
 }
 
+get_portainer_url() {
+  print_banner
+  printf "${WHITE} 💻 Digite o domínio do Portainer:${GRAY_LIGHT}"
+  printf "\n\n"
+  read -p "> " portainer_url
+}
+
 whazing_atualizar() {
   system_pm2_stop
   arruma_permissao
@@ -49,6 +56,14 @@ desativar_firewall () {
 
 Erro_global () {
   erro_banco
+}
+
+Portainer_ssl () {
+  get_portainer_url
+  portainer_nginx_setup
+  system_nginx_restart
+  system_certbot_portainer_setup
+  system_success_portainer
 }
 
 whazing_atualizar_beta() {
@@ -135,7 +150,7 @@ inquiry_options() {
       ;;
 	  
     10) 
-      Recurso_Premium
+      Portainer_ssl
       exit
       ;;
 	    
