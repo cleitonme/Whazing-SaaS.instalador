@@ -67,16 +67,9 @@ Portainer_ssl () {
 }
 
 whazing_atualizar_beta() {
-  system_pm2_stop
-  arruma_permissao
-  apagar_distsrc
-  update_beta
-  backend_node_dependencies
-  backend_node_build
-  backend_db_migrate
-  system_pm2_start
-  frontend_node_dependencies
-  frontend_node_build
+  backend_docker_update_beta
+  backend_docker_update_beta
+  backend_docker_update_beta
 }
 
 Erro_ssl () {

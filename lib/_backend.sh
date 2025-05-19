@@ -356,3 +356,32 @@ EOF
 
   sleep 2
 }
+
+
+backend_docker_update_beta() {
+  print_banner
+  printf "${WHITE} 💻 Baixando imagem (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/backend
+  docker stop whazing-backend
+  docker rm whazing-backend
+  docker pull --quiet --disable-content-trust=1 whazing/whazing-backend:beta
+  docker run -d \
+  --name whazing-backend \
+  --network host \
+  -p 3000:3000 \
+  --restart=always \
+  -v /home/deploy/whazing/backend/public:/app/public \
+  -v /home/deploy/whazing/backend/logs:/app/logs \
+  -v /home/deploy/whazing/backend/.env:/app/.env \
+  whazing/whazing-backend:beta
+
+
+EOF
+
+  sleep 2
+}
