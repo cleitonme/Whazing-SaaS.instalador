@@ -36,6 +36,7 @@ get_portainer_url() {
 whazing_atualizar() {
   backend_docker_start
   frontend_docker_start
+  atualizacao_terminado
 }
 
 ativar_firewall () {
@@ -61,6 +62,7 @@ Portainer_ssl () {
 whazing_atualizar_beta() {
   backend_docker_update_beta
   frontend_docker_update_beta
+  atualizacao_terminado
 }
 
 Erro_ssl () {
@@ -81,7 +83,7 @@ inquiry_options() {
   printf "\n\n"
   printf "${WHITE} 💻 O que você precisa fazer?${GRAY_LIGHT}"
   printf "\n\n"
-  printf "   Versão 19/05/2025 - 20:40\n"
+  printf "   Versão 19/05/2025 - 20:50\n"
   printf "\n\n"
   printf "   [1] Instalar\n"
   printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"

@@ -901,3 +901,19 @@ EOF
 
   sleep 2
 }
+
+atualizacao_terminado() {
+
+  print_banner
+  printf "${GREEN} Pronto processo finalizado...${NC}"
+  printf "${CYAN_LIGHT}";
+  printf "\n\n"
+  printf "\n"
+  printf "Agora pode voltar usar sistema"
+
+  printf "\n"
+  printf "\n"
+  printf "${NC}";
+
+  sleep 30
+}
