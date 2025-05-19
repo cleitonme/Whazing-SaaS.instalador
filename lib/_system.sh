@@ -34,21 +34,13 @@ instalacao_firewall() {
   sleep 2
 
   sudo su - root <<EOF
-ufw default deny incoming
-ufw default allow outgoing
 ufw allow ssh
 ufw allow 22
 ufw allow 80
 ufw allow 443
 ufw allow 9000
 ufw --force enable
-echo "{\"iptables\": true}" > /etc/docker/daemon.json
-systemctl restart docker
-sed -i -e 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/g' /etc/default/ufw
 ufw reload
-wget -q -O /usr/local/bin/ufw-docker https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
-chmod +x /usr/local/bin/ufw-docker
-ufw-docker install
 systemctl restart ufw
 
 
