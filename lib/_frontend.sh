@@ -196,3 +196,29 @@ EOF
 
   sleep 2
 }
+
+
+frontend_docker_update() {
+  print_banner
+  printf "${WHITE} 💻 Baixando imagem (frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/frontend
+  docker stop whazing-frontend
+  docker rm whazing-frontend
+  docker pull --quiet --disable-content-trust=1 whazing/whazing-frontend:latest
+  docker run -d \
+  --name whazing-frontend \
+  -p 3333:8087 \
+  --restart=always \
+  -v /home/deploy/whazing/frontend/.env:/app/.env \
+  whazing/whazing-frontend:latest
+
+
+EOF
+
+  sleep 2
+}

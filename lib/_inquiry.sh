@@ -34,16 +34,8 @@ get_portainer_url() {
 }
 
 whazing_atualizar() {
-  system_pm2_stop
-  arruma_permissao
-  apagar_distsrc
-  git_update
-  backend_node_dependencies
-  backend_node_build
-  backend_db_migrate
-  system_pm2_start
-  frontend_node_dependencies
-  frontend_node_build
+  backend_docker_update
+  frontend_docker_update
 }
 
 ativar_firewall () {
