@@ -70,10 +70,9 @@ inquiry_options
 # dependencies related
 system_update
 system_set_timezone
-system_puppeteer_dependencies
+system_puppeteerdocker_dependencies
 system_sysctl
-system_node_install
-system_pm2_install
+system_otimizacao_system
 system_docker_install
 instalacao_firewall
 system_snapd_install
@@ -84,29 +83,21 @@ system_certbot_install
 system_create_user
 
 # backend related
-system_unzip_whazing
 system_set_user_mod
+backend_criar_diretorios
 backend_set_env
 backend_db_create
-backend_node_dependencies
 system_docker_restart
-backend_db_migrate
-backend_db_seed
-backend_start_pm2
-backend_nginx_setup
+backend_docker_start
 
 # frontend related
 frontend_set_env
-frontend_node_dependencies
-frontend_quasar
-frontend_node_build
-frontend_start_pm2
+frontend_docker_start
+backend_nginx_setup
 frontend_nginx_setup
 
 # network related
 system_nginx_conf
 system_nginx_restart
 system_certbot_setup
-system_docker_restart
-criar_cron
 system_success

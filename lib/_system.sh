@@ -302,6 +302,32 @@ EOF
   sleep 2
 }
 
+#######################################
+# Ask for file location containing
+# multiple URL for streaming.
+# Globals:
+#   WHITE
+#   GRAY_LIGHT
+#   BATCH_DIR
+#   PROJECT_ROOT
+# Arguments:
+#   None
+#######################################
+system_puppeteerdocker_dependencies() {
+  print_banner
+  printf "${WHITE} 💻 Instalando puppeteer dependencies...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+apt install -y bash sudo curl
+apt install -y ufw apt-transport-https ca-certificates software-properties-common curl wget unzip locales gconf-service ca-certificates nginx unzip fail2ban
+EOF
+
+  sleep 2
+}
+
 system_pm2_stop() {
   print_banner
   printf "${WHITE} 💻 Parando o whazing...${GRAY_LIGHT}"
@@ -347,6 +373,21 @@ system_pm2_install() {
   npm install -g pm2
   pm2 startup ubuntu -u deploy
   env PATH=\$PATH:/usr/bin pm2 startup ubuntu -u deploy --hp /home/deploy
+  echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+  sysctl -p
+EOF
+
+  sleep 2
+}
+
+system_otimizacao_system() {
+  print_banner
+  printf "${WHITE} 💻 otimizando sistema...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
   echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
   sysctl -p
 EOF
@@ -447,7 +488,7 @@ EOF
 #######################################
 system_set_user_mod() {
   print_banner
-  printf "${WHITE} 💻 Vamos atualizar o sistema...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Setando user docker...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2

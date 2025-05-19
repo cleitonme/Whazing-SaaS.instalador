@@ -149,6 +149,24 @@ EOF
   sleep 2
 }
 
+backend_criar_diretorios() {
+  print_banner
+  printf "${WHITE} 💻 criando diretarios...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/
+  mkdir whazing
+  cd whazing
+  mkdir frontend
+  mkdir backend
+EOF
+
+  sleep 2
+}
+
 #######################################
 # installs node.js dependencies
 # Arguments:
@@ -250,6 +268,32 @@ EOF
 
   sleep 2
 }
+
+backend_docker_start() {
+  print_banner
+  printf "${WHITE} 💻 Baixando imagem (backend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/backend
+  docker run -d \
+  --name whazing-backend \
+  --network host \
+  -p 3000:3000 \
+  --restart=always \
+  -v $(pwd)/public:/app/public \
+  -v $(pwd)/logs:/app/logs \
+  -v $(pwd)/.env:/app/.env \
+  whazing/whazing-backend:latest
+
+
+EOF
+
+  sleep 2
+}
+
 
 #######################################
 # updates frontend code

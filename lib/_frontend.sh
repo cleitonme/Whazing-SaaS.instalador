@@ -80,7 +80,6 @@ frontend_set_env() {
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whazing/frontend/.env
 URL_API=${backend_url}
-FACEBOOK_APP_ID='23156312477653241'
 [-]EOF
 EOF
 
@@ -146,6 +145,29 @@ server {
 END
 
 ln -s /etc/nginx/sites-available/whazing-frontend /etc/nginx/sites-enabled
+EOF
+
+  sleep 2
+}
+
+frontend_docker_start() {
+  print_banner
+  printf "${WHITE} 💻 Baixando imagem (frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/frontend
+  docker run -d \
+  --name whazing-frontend \
+  --network host \
+  -p 3333:8087 \
+  --restart=always \
+  -v $(pwd)/.env:/app/.env \
+  whazing/whazing-frontend:latest
+
+
 EOF
 
   sleep 2
