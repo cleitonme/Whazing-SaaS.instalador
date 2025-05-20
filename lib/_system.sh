@@ -851,6 +851,7 @@ preparacao_migrar_docker() {
 
   sudo su - deploy <<EOF
   pm2 delete all
+  pm2 save
 
 EOF
 
