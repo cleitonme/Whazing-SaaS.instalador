@@ -37,14 +37,14 @@ cd ./whazinginstalador
 
 8 - Executar
 ```bash
-sudo ./whazing
+./whazing
 ```
 
-9 - Usar opção 12 instalador para remover
+9 - Usar opção 12 instalador para remover modelo antigo
 
 10 - Abra instalador novamente
 ```bash
-sudo ./whazing
+./whazing
 ```
 
 11 - Use opção 2 para versão estavel ou 11 versão beta
