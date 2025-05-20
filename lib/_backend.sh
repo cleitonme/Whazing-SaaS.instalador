@@ -307,7 +307,6 @@ backend_docker_start() {
   docker run -d \
   --name whazing-backend \
   --network host \
-  -p 3000:3000 \
   --restart=always \
   -v /home/deploy/whazing/backend/private:/app/private \
   -v /home/deploy/whazing/backend/public:/app/public \
@@ -378,7 +377,6 @@ backend_docker_update_beta() {
   docker run -d \
   --name whazing-backend \
   --network host \
-  -p 3000:3000 \
   --restart=always \
   -v /home/deploy/whazing/backend/private:/app/private \
   -v /home/deploy/whazing/backend/public:/app/public \
