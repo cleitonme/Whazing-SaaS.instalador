@@ -1,4 +1,4 @@
-######### Antes de começar faça um snapshot da VPS  ############
+# Antes de começar faça um snapshot da VPS  #
 
 # Tutorial rapido e facil de como migrar nova versão
 
