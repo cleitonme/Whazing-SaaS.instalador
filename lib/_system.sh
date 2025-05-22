@@ -954,3 +954,20 @@ EOF
 
   sleep 2
 }
+
+
+limpa_docker_imagem() {
+  print_banner
+  printf "${WHITE} 💻 Limpando imagens não usadas...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/frontend
+  docker image prune -f
+
+EOF
+
+  sleep 2
+}
