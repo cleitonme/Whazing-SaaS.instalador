@@ -152,14 +152,13 @@ EOF
 
 frontend_docker_start() {
   print_banner
-  printf "${WHITE} 💻 Baixando imagem (frontend)...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Atualizando (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/frontend
-  docker pull --disable-content-trust=1 whazing/whazing-frontend:latest
   docker stop whazing-frontend
   docker rm whazing-frontend
   docker run -d \
@@ -177,14 +176,13 @@ EOF
 
 frontend_docker_update_beta() {
   print_banner
-  printf "${WHITE} 💻 Baixando imagem (frontend)...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Atualizando (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/frontend
-  docker pull --disable-content-trust=1 whazing/whazing-frontend:beta
   docker stop whazing-frontend
   docker rm whazing-frontend
   docker run -d \

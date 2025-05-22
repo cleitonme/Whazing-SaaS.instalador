@@ -918,3 +918,39 @@ atualizacao_terminado() {
 
   sleep 30
 }
+
+download_docker_imagem_beta() {
+  print_banner
+  printf "${WHITE} 💻 Baixando imagem (whazing)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/frontend
+  docker pull --disable-content-trust=1 whazing/whazing-frontend:beta
+  docker pull --disable-content-trust=1 whazing/whazing-backend:beta
+
+
+EOF
+
+  sleep 2
+}
+
+download_docker_imagem_estavel() {
+  print_banner
+  printf "${WHITE} 💻 Baixando imagem (whazing)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/frontend
+  docker pull --disable-content-trust=1 whazing/whazing-frontend:latest
+  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
+
+
+EOF
+
+  sleep 2
+}

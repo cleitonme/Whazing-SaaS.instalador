@@ -294,14 +294,13 @@ EOF
 
 backend_docker_start() {
   print_banner
-  printf "${WHITE} 💻 Baixando imagem (backend)...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Atualizando (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
   docker stop whazing-backend
   docker rm whazing-backend
   docker run -d \
@@ -364,14 +363,13 @@ EOF
 
 backend_docker_update_beta() {
   print_banner
-  printf "${WHITE} 💻 Baixando imagem (backend)...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Atualizando (backend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  docker pull --disable-content-trust=1 whazing/whazing-backend:beta
   docker stop whazing-backend
   docker rm whazing-backend
   docker run -d \

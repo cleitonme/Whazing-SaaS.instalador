@@ -91,6 +91,7 @@ system_docker_restart
 
 # frontend related
 frontend_set_env
+download_docker_imagem_estavel
 backend_docker_start
 frontend_docker_start
 backend_nginx_setup
