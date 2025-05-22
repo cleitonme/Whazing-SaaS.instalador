@@ -921,7 +921,7 @@ atualizacao_terminado() {
 
 download_docker_imagem_beta() {
   print_banner
-  printf "${WHITE} 💻 Baixando imagem (whazing)...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Baixando imagem Beta (whazing)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2

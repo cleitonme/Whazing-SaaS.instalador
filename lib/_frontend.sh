@@ -176,7 +176,7 @@ EOF
 
 frontend_docker_update_beta() {
   print_banner
-  printf "${WHITE} 💻 Atualizando (frontend)...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Atualizando Beta (frontend)...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
