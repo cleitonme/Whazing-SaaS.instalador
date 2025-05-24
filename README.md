@@ -107,6 +107,44 @@ nano config
 sudo ./whazing
 ```
 
+## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR O ATUALIZADOR
+
+1 - acessar como root
+```bash
+sudo su root
+```
+
+2 - acessar pasta root
+```bash
+cd /root/
+```
+
+
+3 - apagar instalador antigo
+```bash
+rm whazinginstalador/ -Rf
+```
+
+4 - baixar novo instalador
+```bash
+git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
+```
+
+5 - Da permisão
+```bash
+sudo chmod +x ./whazinginstalador/whazing
+```
+
+6 - Acessar pasta
+```bash
+cd ./whazinginstalador
+```
+
+8 - Executar
+```bash
+./whazing
+```
+
 ## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR
 ```bash
 sudo su root

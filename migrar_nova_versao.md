@@ -20,7 +20,7 @@ cd /root/
 rm whazinginstalador/ -Rf
 ```
 
-4 - baixar novo instalado
+4 - baixar novo instalador
 ```bash
 git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
 ```
