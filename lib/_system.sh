@@ -971,3 +971,27 @@ EOF
 
   sleep 2
 }
+
+ponteiner_docker_update() {
+  print_banner
+  printf "${WHITE} 💻 Atualizando Ponteiner...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  cd /home/deploy/whazing/backend
+  docker pull --disable-content-trust=1 portainer/portainer-ce
+  docker stop portainer
+  docker rm portainer
+  docker run -d --name portainer \
+                -p 9000:9000 -p 9443:9443 \
+                --restart=always \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                -v portainer_data:/data portainer/portainer-ce
+
+
+EOF
+
+  sleep 0
+}

@@ -74,6 +74,10 @@ Erro_ssl () {
   system_certbot_erro_setup
 }
 
+atualizar_ponteiner () {
+  ponteiner_docker_update
+}
+
 migrar_docker () {
   preparacao_migrar_docker
   apagar_nao_usado
@@ -87,7 +91,7 @@ inquiry_options() {
   printf "\n\n"
   printf "${WHITE} 💻 O que você precisa fazer?${GRAY_LIGHT}"
   printf "\n\n"
-  printf "   Versão 22/05/2025 - 08:44\n"
+  printf "   Versão 24/05/2025 - 08:44\n"
   printf "\n\n"
   printf "   [1] Instalar\n"
   printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"
@@ -101,6 +105,7 @@ inquiry_options() {
   printf "   [10] Liberar acesso portainer dominio SSL - necessario 1 dominio\n"
   printf "   [11] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
   printf "   [12] Migração instalação antiga(para quem instalou sistema antes 19/05/25)\n"
+  printf "   [13] Atualizar o ponteiner\n"
   printf "\n"
   read -p "> " option
 
@@ -161,6 +166,11 @@ inquiry_options() {
 
     12) 
       migrar_docker
+      exit
+      ;;
+
+    13) 
+      atualizar_ponteiner
       exit
       ;;
 
