@@ -82,6 +82,7 @@ migrar_docker () {
   preparacao_migrar_docker
   apagar_nao_usado
   instalacao_firewall
+  criar_cron
   Removido_Antigo
 }
 
