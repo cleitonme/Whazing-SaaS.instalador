@@ -307,6 +307,8 @@ backend_docker_start() {
   --name whazing-backend \
   --network host \
   --restart=always \
+  -e TZ=${timezonetext} \
+  -v /etc/localtime:/etc/localtime:ro \
   -v /home/deploy/whazing/backend/private:/app/private \
   -v /home/deploy/whazing/backend/public:/app/public \
   -v /home/deploy/whazing/backend/logs:/app/logs \
@@ -376,6 +378,8 @@ backend_docker_update_beta() {
   --name whazing-backend \
   --network host \
   --restart=always \
+  -e TZ=${timezonetext} \
+  -v /etc/localtime:/etc/localtime:ro \
   -v /home/deploy/whazing/backend/private:/app/private \
   -v /home/deploy/whazing/backend/public:/app/public \
   -v /home/deploy/whazing/backend/logs:/app/logs \
