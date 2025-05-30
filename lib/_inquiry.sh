@@ -92,7 +92,7 @@ inquiry_options() {
   printf "\n\n"
   printf "${WHITE} 💻 O que você precisa fazer?${GRAY_LIGHT}"
   printf "\n\n"
-  printf "   Versão 24/05/2025 - 08:44\n"
+  printf "   Versão 30/05/2025 - 11:12\n"
   printf "\n\n"
   printf "   [1] Instalar\n"
   printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"
