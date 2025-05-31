@@ -116,11 +116,6 @@ MAX_SLEEP_AUTO_REPLY=600
 MIN_SLEEP_INTERVAL=200
 MAX_SLEEP_INTERVAL=500
 
-# dados do RabbitMQ / Para não utilizar, basta comentar a var AMQP_URL
-RABBITMQ_DEFAULT_USER=whazing
-RABBITMQ_DEFAULT_PASS=${rabbit_pass}
-#AMQP_URL='amqp://whazing:${rabbit_pass}@localhost:5672?connection_attempts=5&retry_delay=5'
-
 # api oficial (integração em desenvolvimento)
 API_URL_360=https://waba-sandbox.360dialog.io
 
