@@ -289,8 +289,6 @@ backend_docker_start() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  docker stop whazing-backend
-  docker rm whazing-backend
   docker run -d \
   --name whazing-backend \
   --network host \
@@ -360,8 +358,6 @@ backend_docker_update_beta() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  docker stop whazing-backend
-  docker rm whazing-backend
   docker run -d \
   --name whazing-backend \
   --network host \
@@ -373,6 +369,25 @@ backend_docker_update_beta() {
   -v /home/deploy/whazing/backend/logs:/app/logs \
   -v /home/deploy/whazing/backend/.env:/app/.env \
   whazing/whazing-backend:beta
+
+
+EOF
+
+  sleep 0
+}
+
+backend_docker_remove() {
+  print_banner
+  printf "${WHITE} 💻 Removendo possivel instalações antigas...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - deploy <<EOF
+  docker stop whazing-backend
+  docker rm whazing-backend
+  docker stop whazing-frontend
+  docker rm whazing-frontend
 
 
 EOF

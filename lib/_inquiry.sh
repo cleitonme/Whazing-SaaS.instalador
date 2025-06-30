@@ -35,6 +35,7 @@ get_portainer_url() {
 
 whazing_atualizar() {
   download_docker_imagem_estavel
+  backend_docker_remove
   backend_docker_start
   frontend_docker_start
   limpa_docker_imagem
@@ -63,6 +64,7 @@ Portainer_ssl () {
 
 whazing_atualizar_beta() {
   download_docker_imagem_beta
+  backend_docker_remove
   backend_docker_update_beta
   frontend_docker_update_beta
   limpa_docker_imagem

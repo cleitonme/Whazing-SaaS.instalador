@@ -159,8 +159,6 @@ frontend_docker_start() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/frontend
-  docker stop whazing-frontend
-  docker rm whazing-frontend
   docker run -d \
   --name whazing-frontend \
   -p 3333:8087 \
@@ -183,8 +181,6 @@ frontend_docker_update_beta() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/frontend
-  docker stop whazing-frontend
-  docker rm whazing-frontend
   docker run -d \
   --name whazing-frontend \
   -p 3333:8087 \
