@@ -25,7 +25,7 @@ backend_db_create() {
                 -p 5432:5432 \
                 --restart=always \
                 -v /data:/var/lib/postgresql/data \
-                -d postgres
+                -d postgres:17.2
   docker exec -u root postgresql bash -c "chown -R postgres:postgres /var/lib/postgresql/data"
   docker run --name redis-whazing \
                 -e TZ=${timezonetext} \
