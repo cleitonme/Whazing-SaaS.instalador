@@ -68,15 +68,11 @@ source "${PROJECT_ROOT}"/config
 inquiry_options
 
 # dependencies related
-system_update
 system_set_timezone
 system_puppeteerdocker_dependencies
 system_sysctl
 system_docker_install
 instalacao_firewall
-system_snapd_install
-system_nginx_install
-system_certbot_install
 
 # system config
 system_create_user
@@ -94,12 +90,9 @@ frontend_set_env
 download_docker_imagem_estavel
 backend_docker_start
 frontend_docker_start
-backend_nginx_setup
-frontend_nginx_setup
 
 # network related
-system_nginx_conf
-system_nginx_restart
-system_certbot_setup
+system_caddy_setup
+caddy_config_setup
 criar_cron
 system_success

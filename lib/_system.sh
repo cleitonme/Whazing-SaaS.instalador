@@ -246,8 +246,6 @@ system_update() {
   sudo su - root <<EOF
   apt -y update && apt -y upgrade
   apt autoremove -y
-  sudo ufw allow 443/tcp
-  sudo ufw allow 80/tcp
 EOF
 
   sleep 2
@@ -320,7 +318,7 @@ system_puppeteer_dependencies() {
 
   sudo su - root <<EOF
 apt install -y bash sudo curl
-apt install -y ffmpeg ufw apt-transport-https ca-certificates software-properties-common curl libgbm-dev wget unzip fontconfig locales gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils python2-minimal build-essential libxshmfence-dev nginx unzip fail2ban
+apt install -y ffmpeg ufw apt-transport-https ca-certificates software-properties-common curl libgbm-dev wget unzip fontconfig locales gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils python2-minimal build-essential libxshmfence-dev unzip fail2ban
 EOF
 
   sleep 2
@@ -345,8 +343,9 @@ system_puppeteerdocker_dependencies() {
   sleep 2
 
   sudo su - root <<EOF
+apt -y update
 apt install -y bash sudo curl
-apt install -y ufw apt-transport-https ca-certificates software-properties-common curl wget unzip locales gconf-service ca-certificates nginx unzip fail2ban
+apt install -y ufw apt-transport-https ca-certificates software-properties-common curl wget locales gconf-service ca-certificates unzip fail2ban
 EOF
 
   sleep 2
@@ -994,4 +993,55 @@ ponteiner_docker_update() {
 EOF
 
   sleep 0
+}
+
+caddy_config_setup() {
+  print_banner
+  printf "${WHITE} 💻 Configurando Caddy (backend e frontend)...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  backend_hostname=$(echo "${backend_url/https:\/\/}")
+  frontend_hostname=$(echo "${frontend_url/https:\/\/}")
+
+  sudo su - root << EOF
+cat > /etc/caddy/Caddyfile << END
+$backend_hostname {
+    reverse_proxy 127.0.0.1:3000
+    request_body {
+        max_size 200MB
+    }
+}
+
+$frontend_hostname {
+    reverse_proxy 127.0.0.1:3333
+    request_body {
+        max_size 200MB
+    }
+}
+END
+EOF
+
+  sudo systemctl restart caddy
+}
+
+system_caddy_setup() {
+  print_banner
+  printf "${WHITE} 💻 Instalando Caddy no Ubuntu 22.04...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo apt update
+  sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl gnupg
+
+  curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
+    | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+
+  curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' \
+    | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+
+  sudo apt update
+  sudo apt install -y caddy
 }
