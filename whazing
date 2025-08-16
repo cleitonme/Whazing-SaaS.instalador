@@ -70,6 +70,7 @@ inquiry_options
 # dependencies related
 system_set_timezone
 system_puppeteerdocker_dependencies
+system_caddy_setup
 system_sysctl
 system_docker_install
 instalacao_firewall
@@ -92,7 +93,6 @@ backend_docker_start
 frontend_docker_start
 
 # network related
-system_caddy_setup
 caddy_config_setup
 criar_cron
 system_success
