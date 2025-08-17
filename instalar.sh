@@ -1,39 +1,35 @@
 #!/bin/bash
-set -e  # Sai em caso de erro
+set -e
 
 echo "🚀 Iniciando instalador Whazing..."
 
-# Atualiza pacotes e instala dependências necessárias
+# Atualiza pacotes e instala dependências
 apt update -y
 apt install -y software-properties-common git
 
 # Caminho do instalador
 INSTALL_DIR="/root/whazinginstalador"
 
-# Se a pasta já existe
+# Clona ou atualiza repositório
 if [ -d "$INSTALL_DIR/.git" ]; then
   echo "📥 Repositório já existe, atualizando..."
-
-  # Faz backup do arquivo config, se existir
+  # Faz backup do config
   if [ -f "$INSTALL_DIR/config" ]; then
-    BACKUP_FILE="$INSTALL_DIR/config.bak.$(date +%Y%m%d%H%M%S)"
-    cp "$INSTALL_DIR/config" "$BACKUP_FILE"
-    echo "💾 Backup do config criado em $BACKUP_FILE"
+    cp "$INSTALL_DIR/config" "$INSTALL_DIR/config.bak.$(date +%Y%m%d%H%M%S)"
+    echo "💾 Backup do config criado"
   fi
-
-  # Atualiza repositório sem sobrescrever arquivos locais
   cd "$INSTALL_DIR"
   git pull --ff-only
 else
-  echo "📥 Clonando repositório pela primeira vez..."
+  echo "📥 Clonando repositório..."
   cd /root
   git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
   cd "$INSTALL_DIR"
 fi
 
-# Dá permissão de execução ao instalador
+# Permissão de execução
 chmod +x ./whazing
 
-# Executa o instalador principal
-echo "⚙️ Executando instalador..."
-./whazing
+# Força execução interativa para abrir o menu corretamente
+echo "⚙️ Abrindo menu interativo..."
+exec bash -i -c "./whazing"
