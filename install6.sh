@@ -26,6 +26,7 @@ git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git "$INSTALL_DIR
 # Dá permissão de execução
 chmod +x "$INSTALL_DIR/whazing"
 
-# Abre terminal interativo para executar instalador
-echo "🚀 Iniciando instalador interativo no terminal..."
-gnome-terminal -- bash -c "cd $INSTALL_DIR && sudo ./whazing; exec bash"
+# Executa o instalador interativo **no mesmo terminal**
+echo "🚀 Iniciando instalador interativo..."
+cd "$INSTALL_DIR" || exit
+sudo ./whazing
