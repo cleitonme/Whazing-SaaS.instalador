@@ -63,6 +63,7 @@ chown root:root "${PROJECT_ROOT}"/config
 chmod 700 "${PROJECT_ROOT}"/config
 EOF
 source "${PROJECT_ROOT}"/config
+senha=$(openssl rand -base64 32 | tr -dc 'A-Za-z0-9' | head -c 16)
 
 # interactive CLI
 inquiry_options
