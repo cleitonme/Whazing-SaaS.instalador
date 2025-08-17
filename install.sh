@@ -1,19 +1,11 @@
 #!/bin/bash
-# Atualiza o sistema
-apt update -y
-
-# Instala dependências
+# Atualiza sistema
+apt update -y && apt upgrade -y
 apt install -y software-properties-common git
 
-# Vai para a pasta /root
-cd /root || exit
+# Baixa o instalador
+curl -sSL https://raw.githubusercontent.com/cleitonme/Whazing-SaaS.instalador/main/whazing -o /tmp/whazing
+chmod +x /tmp/whazing
 
-# Clona o instalador
-git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
-
-# Dá permissão de execução
-chmod +x ./whazinginstalador/whazing
-
-# Executa o instalador interativo
-cd ./whazinginstalador || exit
-./whazing
+# Executa interativo
+sudo /tmp/whazing
