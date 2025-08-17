@@ -94,26 +94,47 @@ inquiry_options() {
   printf "\n\n"
   printf "${WHITE} 💻 O que você precisa fazer?${GRAY_LIGHT}"
   printf "\n\n"
-  printf "   Versão 30/05/2025 - 11:12\n"
+  printf "   Versão instalador 16/08/2025\n"
   printf "\n\n"
   printf "   [1] Instalar\n"
   printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"
-  printf "   [3] Ativar Firewall\n"
-  printf "   [4] Desativar Firewall\n"
-  printf "   [5] Erro global/pg_filenode.map\n"
-  printf "   [6] Instalar N8N - necessario 1 dominio\n"
-  printf "   [7] Instalar TypeBot - necessario 4 dominios\n"
-  printf "   [8] Instalar Wordpress - necessario 1 dominio\n"
-  printf "   [9] Dominio com erro SSL\n"
-  printf "   [10] Liberar acesso portainer dominio SSL - necessario 1 dominio\n"
-  printf "   [11] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
-  printf "   [12] Migração instalação antiga(para quem instalou sistema antes 19/05/25)\n"
-  printf "   [13] Atualizar o ponteiner\n"
+  printf "   [3] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
+  printf "   [4] Ativar Firewall\n"
+  printf "   [5] Desativar Firewall\n"
+  printf "   [6] Erro global/pg_filenode.map\n"
+  printf "   [7] Migração instalação antiga(para quem instalou sistema antes 19/05/25)\n"
+  printf "   [8] Atualizar o ponteiner\n"
   printf "\n"
   read -p "> " option
 
   case "${option}" in
-    1) get_urls ;;
+    1) 
+  get_urls
+
+  # Verifica timezone só na instalação
+  echo "⏰ O timezone atual configurado é: $timezonetext ($timezonenumber)"
+  read -p "Está correto? (s/n) " resposta
+
+  if [[ "$resposta" =~ ^[Nn]$ ]]; then
+      echo "Digite o novo timezone (exemplo: America/Sao_Paulo):"
+      read -p "> " novo_timezone
+
+      echo "Digite o número da timezone (exemplo: -03:00):"
+      read -p "> " novo_timezonenumber
+
+      # Atualiza arquivo config
+      sed -i "s|^timezonetext=.*|timezonetext=${novo_timezone}|" "${PROJECT_ROOT}"/config
+      sed -i "s|^timezonenumber=.*|timezonenumber=${novo_timezonenumber}|" "${PROJECT_ROOT}"/config
+
+      # Atualiza variáveis na sessão atual
+      timezonetext=$novo_timezone
+      timezonenumber=$novo_timezonenumber
+
+      echo "✅ Timezone atualizado para: $timezonetext ($timezonenumber)"
+      sleep 1
+  fi
+  ;;
+
 
 
     2) 
@@ -121,58 +142,32 @@ inquiry_options() {
       exit
       ;;
 
-
     3) 
-      ativar_firewall 
-      exit
-      ;;
-	  
-    4) 
-      desativar_firewall 
-      exit
-      ;;
-	  
-    5) 
-      Erro_global 
-      exit
-      ;;
-	  
-    6) 
-      Recurso_Premium
-      exit
-      ;;
-	  
-    7) 
-      Recurso_Premium
-      exit
-      ;;
-	  
-    8) 
-      Recurso_Premium
-      exit
-      ;;
-
-    9) 
-      Erro_ssl
-      exit
-      ;;
-	  
-    10) 
-      Portainer_ssl
-      exit
-      ;;
-	    
-    11) 
       whazing_atualizar_beta
       exit
       ;;
 
-    12) 
+    4) 
+      ativar_firewall 
+      exit
+      ;;
+	  
+    5) 
+      desativar_firewall 
+      exit
+      ;;
+	  
+    6) 
+      Erro_global 
+      exit
+      ;;
+	 
+    7) 
       migrar_docker
       exit
       ;;
 
-    13) 
+    8) 
       atualizar_ponteiner
       exit
       ;;
