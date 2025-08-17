@@ -70,27 +70,9 @@ reboot
 ```
  
 Depois reniciar seguir com a instalacao
-```bash
-sudo su root
-```
-```bash
-apt install git
-```
-```bash
-cd /root
-```
-```bash
-git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
-```
-```bash
-sudo chmod +x ./whazinginstalador/whazing
-```
-```bash
-cd ./whazinginstalador
-```
 
 ```bash
-sudo ./whazing
+curl -sSL instalar.whazing.com.br | sudo bash
 ```
 
 ## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR O ATUALIZADOR
