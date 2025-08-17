@@ -37,5 +37,3 @@ chmod +x ./whazing
 # Executa o instalador principal
 echo "⚙️ Executando instalador..."
 ./whazing
-
-echo "✅ Instalação/atualização concluída!"
