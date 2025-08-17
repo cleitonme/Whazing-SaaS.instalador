@@ -89,20 +89,6 @@ sudo chmod +x ./whazinginstalador/whazing
 cd ./whazinginstalador
 ```
 
-## Importante alterar senhas padrão para evitar ataques
-
-Editar dados com seus dados, com nano para salvar aperta Ctrl + x
-Ou com acesso vps pelo aplicativo que preferir
-
-- Use somente letras e numeros, não use caracteres especiais
-- Não prescisa alterar outros campos caso queria usar mesma senha todos serviços somente alterar primeira linha
-senha=AKwWM4Qu2GRppJ7
-- Configure timezone se necessário
-
-```bash
-nano config
-```
-
 ```bash
 sudo ./whazing
 ```
