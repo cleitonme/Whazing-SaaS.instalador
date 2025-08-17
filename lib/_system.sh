@@ -682,6 +682,9 @@ system_success() {
 
 echo $senha > /root/senhadeploy
 
+  backend_domain=$(echo "${backend_url/https:\/\/}")
+  frontend_domain=$(echo "${frontend_url/https:\/\/}")
+
   print_banner
   printf "${GREEN} 💻 Instalação concluída com Sucesso...${NC}"
   printf "${CYAN_LIGHT}";
