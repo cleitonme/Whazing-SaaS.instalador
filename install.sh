@@ -1,6 +1,6 @@
 #!/bin/bash
 # Atualiza o sistema
-apt update -y && apt upgrade -y
+apt update -y
 
 # Instala dependências
 apt install -y software-properties-common git
