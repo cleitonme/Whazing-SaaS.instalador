@@ -2,6 +2,10 @@
 
 # Whazing SaaS
 
+Manual do produto
+
+[https://doc.whazing.com.br/](https://doc.whazing.com.br/)
+
 ## CRIAR SUBDOMINIO E APONTAR PARA O IP DA SUA VPS
 
 Requisitos
@@ -118,13 +122,3 @@ Depois acesse novamente url http://seuip:9000/
 ```bash
 WHAZING
 ```
-
-#### Curtiu? Apoie o projeto!! Com sua doação, será possível continuar com as atualizações. Segue QR code (PIX)  
-
-[<img src="donate.jpg" height="160" width="180"/>](donate.jpg)
-
-## Consultoria particular
-
-Para consultoria particular (serviço cobrado), entre em contato: (48) 99941-6725.
-
-Versão api em bayles
