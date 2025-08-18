@@ -47,4 +47,4 @@ cd ./whazinginstalador
 ./whazing
 ```
 
-11 - Use opção 2 para versão estavel ou 11 versão beta
+11 - Use opção 2 para versão estavel ou 3 versão beta
