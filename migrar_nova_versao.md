@@ -40,7 +40,7 @@ cd ./whazinginstalador
 ./whazing
 ```
 
-9 - Usar opção 12 instalador para remover modelo antigo
+9 - Usar opção 7 instalador para remover modelo antigo
 
 10 - Abra instalador novamente
 ```bash
