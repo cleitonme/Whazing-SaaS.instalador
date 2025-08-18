@@ -2,41 +2,6 @@
 
 # Whazing SaaS
 
-**IMPORTANTE**: 
-
-- [Termos de Uso](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TermosdeUso.md)
-- [Contrato de Licença](https://github.com/cleitonme/Whazing-SaaS/blob/main/LICENSE)
-
-Versão grátis*
-
-- Limites da versão grátis 
-- 10 usuários
-- 2 canais
-- Suporte WhatsApp Api Bayles
-- Suporte facebook e Instagram  e WebChat - VIA HUB - Necessario pagar mensalidade por canal duvidas (48) 9941-6725
-- Suporte Telegram
-- Verificar premium abaixo para saber diferenças
-
-Versão Premium*
-
-- Sem limites de usuários e canais
-- Kanban
-- Integração WebHook/N8N - TypeBot - Groq - ChatGPT - DeepSeek
-- Transcrição de audio
-- Tarefas
-- Avaliação de atendimento
-- Geração PDF atendimento
-- Relatorio de tickets
-- Anotações em tickets
-- Mensagens separadas por filas
-- Transferir atendimento para ChatBot
-- Retirada mensagem "Enviado via Whazing" no modulo campanhas
-
-- Instalador versão premium TypeBot, N8N e Wordpress
-
-
--  [Tabela de Valores versão premium e serviço de instalação](https://github.com/cleitonme/Whazing-SaaS/blob/main/docs/TabeladeValores.md)
-
 ## CRIAR SUBDOMINIO E APONTAR PARA O IP DA SUA VPS
 
 Requisitos
@@ -75,60 +40,45 @@ Depois reniciar seguir com a instalacao
 curl -sSL instalar.whazing.com.br | sudo bash
 ```
 
-## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR O ATUALIZADOR
+## Manual de como atualizar
 
-1 - acessar como root
-```bash
-sudo su root
-```
+[https://doc.whazing.com.br/atualizar-whazing](https://doc.whazing.com.br/atualizar-whazing) 
 
-2 - acessar pasta root
-```bash
-cd /root/
-```
+**IMPORTANTE**: 
+
+- [Termos de Uso](https://doc.whazing.com.br/termos-de-uso-da-plataforma)
+- [Contrato de Licença](https://doc.whazing.com.br/contrato-de-licenca-de-uso-de-software)
+
+Versão grátis*
+
+- Limites da versão grátis 
+- 10 usuários
+- 2 canais
+- Suporte WhatsApp Api Bayles
+- Suporte facebook e Instagram  e WebChat - VIA HUB - Necessario pagar mensalidade por canal duvidas (48) 9941-6725
+- Suporte Telegram
+- Verificar premium abaixo para saber diferenças
+
+Versão Premium*
+
+- Sem limites de usuários e canais
+- Kanban
+- Integração WebHook/N8N - TypeBot - Groq - ChatGPT - DeepSeek
+- Transcrição de audio
+- Tarefas
+- Avaliação de atendimento
+- Geração PDF atendimento
+- Relatorio de tickets
+- Anotações em tickets
+- Mensagens separadas por filas
+- Transferir atendimento para ChatBot
+- Retirada mensagem "Enviado via Whazing" no modulo campanhas
+
+- Instalador versão premium TypeBot, N8N e Wordpress
 
 
-3 - apagar instalador antigo
-```bash
-rm whazinginstalador/ -Rf
-```
+-  [Tabela de Valores versão premium e serviço de instalação](https://doc.whazing.com.br/tabela-de-valores)
 
-4 - baixar novo instalador
-```bash
-git clone https://github.com/cleitonme/Whazing-SaaS.instalador.git whazinginstalador
-```
-
-5 - Da permisão
-```bash
-sudo chmod +x ./whazinginstalador/whazing
-```
-
-6 - Acessar pasta
-```bash
-cd ./whazinginstalador
-```
-
-8 - Executar
-```bash
-./whazing
-```
-
-## RODAR OS COMANDOS ABAIXO PARA ATUALIZAR
-```bash
-sudo su root
-```
-```bash
-cd /root
-```
-```bash
-cd ./whazinginstalador
-```
-```bash
-chmod +x whazing
-```
-```bash
-sudo ./whazing
-```
 
 ## Alterar Frontend
 
