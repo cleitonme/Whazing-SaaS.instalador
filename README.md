@@ -53,32 +53,22 @@ curl -sSL instalar.whazing.com.br | sudo bash
 - [Termos de Uso](https://doc.whazing.com.br/termos-de-uso-da-plataforma)
 - [Contrato de Licença](https://doc.whazing.com.br/contrato-de-licenca-de-uso-de-software)
 
-Versão grátis*
 
-- Limites da versão grátis 
-- 10 usuários
-- 2 canais
-- Suporte WhatsApp Api Bayles
-- Suporte facebook e Instagram  e WebChat - VIA HUB - Necessario pagar mensalidade por canal duvidas (48) 9941-6725
-- Suporte Telegram
-- Verificar premium abaixo para saber diferenças
+Versão Grátis 🆓
 
-Versão Premium*
+Exibe anúncios do Whazing.
 
-- Sem limites de usuários e canais
-- Kanban
-- Integração WebHook/N8N - TypeBot - Groq - ChatGPT - DeepSeek
-- Transcrição de audio
-- Tarefas
-- Avaliação de atendimento
-- Geração PDF atendimento
-- Relatorio de tickets
-- Anotações em tickets
-- Mensagens separadas por filas
-- Transferir atendimento para ChatBot
-- Retirada mensagem "Enviado via Whazing" no modulo campanhas
+Envia automaticamente propaganda em:
+• Primeira mensagem de novos tickets
+• Mensagens via API
+• Mensagens agendadas
+• Follow-ups
 
-- Instalador versão premium TypeBot, N8N e Wordpress
+Versão Premium 💎
+
+Sem anúncios.
+
+Entregas limpas, sem propaganda adicional.
 
 
 -  [Tabela de Valores versão premium e serviço de instalação](https://doc.whazing.com.br/tabela-de-valores)
