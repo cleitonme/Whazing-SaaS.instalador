@@ -32,10 +32,15 @@ backend_db_create() {
                 -p 6383:6379 \
                 --restart=always \
                 -d redis:latest redis-server \
-                --appendonly yes \
                 --requirepass "${senha}" \
-				--tcp-keepalive 0 \
-				--maxclients 10000
+                --maxclients 2000 \
+                --tcp-keepalive 60 \
+                --maxmemory 512mb \
+                --maxmemory-policy allkeys-lru \
+                --save "" \
+                --appendonly yes \
+                --appendfsync everysec
+
 				
  
   docker run -d --name portainer \
