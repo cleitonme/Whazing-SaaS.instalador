@@ -35,7 +35,6 @@ backend_db_create() {
                 --requirepass "${senha}" \
                 --maxclients 2000 \
                 --tcp-keepalive 60 \
-                --maxmemory 512mb \
                 --maxmemory-policy allkeys-lru \
                 --save "" \
                 --appendonly yes \
