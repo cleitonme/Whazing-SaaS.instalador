@@ -35,9 +35,13 @@ instalacao_firewall() {
   sudo bash -c '
 
 # Impede que Docker interfira no iptables (respeita UFW)
-echo "{
-  \"iptables\": false
-}" > /etc/docker/daemon.json
+# Configura Docker para não interferir no iptables e desativa IPv6
+cat > /etc/docker/daemon.json <<EOF
+{
+  "iptables": false,
+  "ipv6": false
+}
+EOF
 
 # Reinicia Docker para aplicar a configuração
 systemctl restart docker
