@@ -4,7 +4,7 @@ set -euo pipefail
 # Caminho padrão para o .env se não passar argumento
 ENV_FILE="${1:-/home/deploy/whazing/backend/.env}"
 
-# Nome do container do Postgres (mude se não for "postgresql")
+# Nome do container do Postgres (ajuste se for diferente)
 CONTAINER_NAME="${CONTAINER_NAME:-postgresql}"
 
 # Nome fixo do arquivo de backup (na pasta atual)
@@ -27,21 +27,15 @@ while IFS= read -r line; do
       POSTGRES_USER) POSTGRES_USER="$val" ;;
       POSTGRES_PASSWORD) POSTGRES_PASSWORD="$val" ;;
       POSTGRES_DB) POSTGRES_DB="$val" ;;
-      POSTGRES_HOST) POSTGRES_HOST="$val" ;;
-      POSTGRES_PORT|DB_PORT) POSTGRES_PORT="$val" ;;
     esac
   fi
 done < "$ENV_FILE"
 
-# Valores padrão
-POSTGRES_HOST="${POSTGRES_HOST:-localhost}"
-POSTGRES_PORT="${POSTGRES_PORT:-5432}"
-
-# Executa o backup
+# Executa o backup (sem host/port, igual comando manual)
 log "Gerando backup no arquivo: $OUTFILE"
 
-docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" "$CONTAINER_NAME" \
-  pg_dump -U "$POSTGRES_USER" -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" "$POSTGRES_DB" \
+docker exec -i -e PGPASSWORD="$POSTGRES_PASSWORD" "$CONTAINER_NAME" \
+  pg_dump --username="$POSTGRES_USER" --dbname="$POSTGRES_DB" \
   | gzip > "$OUTFILE"
 
 chmod 600 "$OUTFILE"
