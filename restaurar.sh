@@ -3,11 +3,14 @@
 # Função para capturar erros
 trap 'echo "[ERRO] Falha na linha $LINENO. Comando: $BASH_COMMAND" >&2' ERR
 
+# Detecta o diretório onde o script está sendo executado
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 ENV_FILE="/home/deploy/whazing/backend/.env"
 CONTAINER_NAME="postgresql"
 BACKEND_CONTAINER="whazing-backend"
-BACKUP_FILE="/home/deploy/backupwhazing.sql.gz"
-TEMP_SQL="/home/deploy/backupwhazing.sql"
+BACKUP_FILE="${SCRIPT_DIR}/backupwhazing.sql.gz"
+TEMP_SQL="${SCRIPT_DIR}/backupwhazing.sql"
 
 # Aviso grande
 echo "############################################################"
