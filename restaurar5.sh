@@ -3,8 +3,8 @@
 ENV_FILE="/home/deploy/whazing/backend/.env"
 CONTAINER_NAME="postgresql"
 BACKEND_CONTAINER="whazing-backend"
-BACKUP_FILE="$(pwd)/backupwhazing.sql.gz"
-TEMP_SQL="$(pwd)/backupwhazing.sql"
+BACKUP_FILE="/home/deploy/backupwhazing.sql.gz"
+TEMP_SQL="/home/deploy/backupwhazing.sql"
 
 # Aviso grande
 echo "############################################################"
@@ -40,13 +40,17 @@ fi
 
 echo "[INFO] Variáveis carregadas: POSTGRES_USER=$POSTGRES_USER, POSTGRES_DB=$POSTGRES_DB"
 
-# Verifica backup
+# Verifica backup ANTES de ativar set -e
+echo "[INFO] Verificando arquivo de backup em: $BACKUP_FILE"
 if [[ ! -f "$BACKUP_FILE" ]]; then
   echo "ERRO: arquivo de backup não encontrado em: $BACKUP_FILE" >&2
+  echo "[INFO] Arquivos .sql.gz disponíveis no diretório:" >&2
+  ls -lh /home/deploy/*.sql.gz 2>/dev/null || echo "Nenhum arquivo .sql.gz encontrado" >&2
   exit 3
 fi
+echo "[INFO] Backup encontrado: $(ls -lh "$BACKUP_FILE")"
 
-# Ativa modo strict APÓS carregar .env
+# Ativa modo strict APÓS todas as verificações
 set -euo pipefail
 
 # Para o backend
@@ -57,16 +61,20 @@ docker container stop "$BACKEND_CONTAINER"
 NEW_DB="${POSTGRES_DB}_restore_$(date '+%Y%m%d%H%M%S')"
 echo "[INFO] Criando novo banco: $NEW_DB"
 docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -c "CREATE DATABASE \"$NEW_DB\";"
+echo "[INFO] Banco criado com sucesso!"
 
 # Descompacta backup
 echo "[INFO] Descompactando backup..."
 gunzip -c "$BACKUP_FILE" > "$TEMP_SQL"
+echo "[INFO] Backup descompactado. Tamanho: $(ls -lh "$TEMP_SQL" | awk '{print $5}')"
 
 # Restaura dentro do container
 echo "[INFO] Restaurando backup no banco $NEW_DB..."
 cat "$TEMP_SQL" | docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -d "$NEW_DB"
+echo "[INFO] Backup restaurado com sucesso!"
 
 # Apaga arquivo temporário
+echo "[INFO] Removendo arquivo temporário..."
 rm -f "$TEMP_SQL"
 
 # Atualiza .env
@@ -76,9 +84,15 @@ if grep -q '^POSTGRES_DB=' "$ENV_FILE"; then
 else
   echo "POSTGRES_DB=$NEW_DB" >> "$ENV_FILE"
 fi
+echo "[INFO] .env atualizado!"
 
 # Inicia backend
 echo "[INFO] Iniciando backend..."
 docker container start "$BACKEND_CONTAINER"
 
-echo "[SUCESSO] Restauração concluída! Novo banco: $NEW_DB"
+echo ""
+echo "############################################################"
+echo "[SUCESSO] Restauração concluída!"
+echo "Novo banco: $NEW_DB"
+echo "Backend reiniciado"
+echo "############################################################"
