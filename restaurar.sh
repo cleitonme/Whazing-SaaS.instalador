@@ -17,9 +17,9 @@ echo "############################################################"
 echo "ATENÇÃO! Este script irá RESTAURAR o banco de dados."
 echo "Ele irá parar o backend, criar um novo banco, restaurar o backup e alterar o .env."
 echo "Se você NÃO tiver certeza, pressione CTRL+C para cancelar."
-echo "Iniciando em 10 segundos..."
+echo "Iniciando em 60 segundos..."
 echo "############################################################"
-sleep 10
+sleep 60
 
 # Remove caracteres Windows (se existirem)
 sed -i 's/\r$//' "$ENV_FILE" 2>/dev/null || true
