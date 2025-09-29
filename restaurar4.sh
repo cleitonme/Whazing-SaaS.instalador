@@ -1,9 +1,6 @@
 #!/bin/bash
-set -euo pipefail
 
 ENV_FILE="/home/deploy/whazing/backend/.env"
-sed -i 's/\r$//' "$ENV_FILE"
-
 CONTAINER_NAME="postgresql"
 BACKEND_CONTAINER="whazing-backend"
 BACKUP_FILE="$(pwd)/backupwhazing.sql.gz"
@@ -18,21 +15,39 @@ echo "Iniciando em 60 segundos..."
 echo "############################################################"
 sleep 60
 
+# Remove caracteres Windows (se existirem)
+sed -i 's/\r$//' "$ENV_FILE" 2>/dev/null || true
+
 # Carrega variáveis do .env
 if [[ ! -f "$ENV_FILE" ]]; then
   echo "ERRO: arquivo .env não encontrado em: $ENV_FILE" >&2
   exit 2
 fi
 
+echo "[INFO] Carregando variáveis do .env..."
 set -a
-source "$ENV_FILE"
+source "$ENV_FILE" || {
+  echo "ERRO: Falha ao carregar .env. Verifique a sintaxe do arquivo." >&2
+  exit 4
+}
 set +a
+
+# Verifica se as variáveis necessárias foram carregadas
+if [[ -z "${POSTGRES_USER:-}" ]] || [[ -z "${POSTGRES_DB:-}" ]]; then
+  echo "ERRO: POSTGRES_USER ou POSTGRES_DB não definidos no .env" >&2
+  exit 5
+fi
+
+echo "[INFO] Variáveis carregadas: POSTGRES_USER=$POSTGRES_USER, POSTGRES_DB=$POSTGRES_DB"
 
 # Verifica backup
 if [[ ! -f "$BACKUP_FILE" ]]; then
   echo "ERRO: arquivo de backup não encontrado em: $BACKUP_FILE" >&2
   exit 3
 fi
+
+# Ativa modo strict APÓS carregar .env
+set -euo pipefail
 
 # Para o backend
 echo "[INFO] Parando backend..."
@@ -41,8 +56,7 @@ docker container stop "$BACKEND_CONTAINER"
 # Nome do novo banco
 NEW_DB="${POSTGRES_DB}_restore_$(date '+%Y%m%d%H%M%S')"
 echo "[INFO] Criando novo banco: $NEW_DB"
-
-docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -c "CREATE DATABASE $NEW_DB;"
+docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -c "CREATE DATABASE \"$NEW_DB\";"
 
 # Descompacta backup
 echo "[INFO] Descompactando backup..."
