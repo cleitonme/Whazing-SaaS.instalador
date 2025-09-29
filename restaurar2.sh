@@ -46,12 +46,16 @@ docker exec -i "$CONTAINER_NAME" /bin/bash -c \
 
 # Restaura o backup
 echo "[INFO] Restaurando backup..."
-gzip -dc "$BACKUP_FILE" | docker exec -i "$CONTAINER_NAME" /bin/bash -c \
-  "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -d $NEW_DB"
+gzip -dc "$BACKUP_FILE" | docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -d "$NEW_DB"
 
 # Atualiza .env
 echo "[INFO] Atualizando .env para usar o novo banco..."
-sed -i "s/^POSTGRES_DB=.*/POSTGRES_DB=$NEW_DB/" "$ENV_FILE"
+# Remove a linha antiga e adiciona a nova
+if grep -q '^POSTGRES_DB=' "$ENV_FILE"; then
+  sed -i "s/^POSTGRES_DB=.*/POSTGRES_DB=$NEW_DB/" "$ENV_FILE"
+else
+  echo "POSTGRES_DB=$NEW_DB" >> "$ENV_FILE"
+fi
 
 # Inicia backend
 echo "[INFO] Iniciando backend..."
