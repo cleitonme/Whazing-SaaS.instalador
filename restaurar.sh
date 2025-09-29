@@ -69,7 +69,7 @@ fi
 echo "[INFO] Backend parado com sucesso!"
 
 # Nome do novo banco
-NEW_DB="${POSTGRES_DB}_restore_$(date '+%Y%m%d%H%M%S')"
+NEW_DB="whazing_$(date '+%Y%m%d_%H%M')"
 echo "[INFO] Criando novo banco: $NEW_DB"
 docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -c "CREATE DATABASE \"$NEW_DB\";"
 if [ $? -ne 0 ]; then
