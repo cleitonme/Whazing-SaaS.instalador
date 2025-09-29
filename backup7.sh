@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Caminho do .env
 ENV_FILE="/home/deploy/whazing/backend/.env"
+sed -i 's/\r$//' "$ENV_FILE"
 
 # Nome do container PostgreSQL
 CONTAINER_NAME="postgresql"
