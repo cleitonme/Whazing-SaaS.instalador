@@ -7,6 +7,7 @@ sed -i 's/\r$//' "$ENV_FILE"
 CONTAINER_NAME="postgresql"
 BACKEND_CONTAINER="whazing-backend"
 BACKUP_FILE="$(pwd)/backupwhazing.sql.gz"
+TEMP_SQL="$(pwd)/backupwhazing.sql"
 
 # Aviso grande
 echo "############################################################"
@@ -41,16 +42,21 @@ docker container stop "$BACKEND_CONTAINER"
 NEW_DB="${POSTGRES_DB}_restore_$(date '+%Y%m%d%H%M%S')"
 echo "[INFO] Criando novo banco: $NEW_DB"
 
-docker exec -i "$CONTAINER_NAME" /bin/bash -c \
-  "PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -c \"CREATE DATABASE $NEW_DB;\""
+docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -c "CREATE DATABASE $NEW_DB;"
 
-# Restaura o backup
-echo "[INFO] Restaurando backup..."
-gzip -dc "$BACKUP_FILE" | docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -d "$NEW_DB"
+# Descompacta backup
+echo "[INFO] Descompactando backup..."
+gunzip -c "$BACKUP_FILE" > "$TEMP_SQL"
+
+# Restaura dentro do container
+echo "[INFO] Restaurando backup no banco $NEW_DB..."
+cat "$TEMP_SQL" | docker exec -i "$CONTAINER_NAME" psql -U "$POSTGRES_USER" -d "$NEW_DB"
+
+# Apaga arquivo temporário
+rm -f "$TEMP_SQL"
 
 # Atualiza .env
 echo "[INFO] Atualizando .env para usar o novo banco..."
-# Remove a linha antiga e adiciona a nova
 if grep -q '^POSTGRES_DB=' "$ENV_FILE"; then
   sed -i "s/^POSTGRES_DB=.*/POSTGRES_DB=$NEW_DB/" "$ENV_FILE"
 else
