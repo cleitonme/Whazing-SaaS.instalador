@@ -27,15 +27,21 @@ while IFS= read -r line; do
       POSTGRES_USER) POSTGRES_USER="$val" ;;
       POSTGRES_PASSWORD) POSTGRES_PASSWORD="$val" ;;
       POSTGRES_DB) POSTGRES_DB="$val" ;;
+      POSTGRES_HOST) POSTGRES_HOST="$val" ;;
+      POSTGRES_PORT|DB_PORT) POSTGRES_PORT="$val" ;;
     esac
   fi
 done < "$ENV_FILE"
+
+# Valores padrão
+POSTGRES_HOST="${POSTGRES_HOST:-localhost}"
+POSTGRES_PORT="${POSTGRES_PORT:-5432}"
 
 # Executa o backup
 log "Gerando backup no arquivo: $OUTFILE"
 
 docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" "$CONTAINER_NAME" \
-  pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB" \
+  pg_dump -U "$POSTGRES_USER" -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" "$POSTGRES_DB" \
   | gzip > "$OUTFILE"
 
 chmod 600 "$OUTFILE"
