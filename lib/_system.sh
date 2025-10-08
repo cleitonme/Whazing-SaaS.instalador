@@ -749,7 +749,7 @@ Recurso_Premium() {
   printf "${CYAN_LIGHT}";
   printf "\n\n"
   printf "\n"
-  printf "Adquira já (48) 99941-6725"
+  printf "Adquira já whatsapp +55 48 3197-0599"
 
   printf "\n"
   printf "\n"
