@@ -48,6 +48,11 @@ services:
       # RabbitMQ configuration Optional
       - RABBITMQ_URL=amqp://wuzapi:wuzapi@rabbitmq:5672/
       - RABBITMQ_QUEUE=whatsapp_events
+      # Retry
+      - WEBHOOK_RETRY_ENABLED=true
+      - WEBHOOK_RETRY_COUNT=10
+      - WEBHOOK_RETRY_DELAY_SECONDS=30
+      - WEBHOOK_ERROR_QUEUE_NAME=wuzapi_dead_letter_webhooks
     depends_on:
       db:
         condition: service_healthy
