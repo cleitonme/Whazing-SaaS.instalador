@@ -44,7 +44,6 @@ services:
       - DB_PORT=5432
       - TZ=${TIMEZONE}
       - WEBHOOK_FORMAT=json
-      - SESSION_DEVICE_NAME=Windows
       # RabbitMQ configuration Optional
       - RABBITMQ_URL=amqp://wuzapi:wuzapi@rabbitmq:5672/
       - RABBITMQ_QUEUE=whatsapp_events
