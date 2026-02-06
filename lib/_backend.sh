@@ -31,15 +31,19 @@ backend_db_create() {
                 -e TZ=${timezonetext} \
                 -p 6383:6379 \
                 --restart=always \
+                --memory=3g \
                 -d redis:latest redis-server \
                 --requirepass "${senha}" \
-                --maxclients 2000 \
+                --maxclients 1000 \
                 --tcp-keepalive 60 \
-                --maxmemory-policy allkeys-lru \
+                --maxmemory 2gb \
+                --maxmemory-policy volatile-lru \
                 --save "" \
                 --appendonly yes \
-                --appendfsync everysec
-
+                --appendfsync everysec \
+                --lazyfree-lazy-eviction yes \
+                --lazyfree-lazy-expire yes \
+                --lazyfree-lazy-server-del yes
 				
  
   docker run -d --name portainer \

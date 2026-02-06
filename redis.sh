@@ -45,14 +45,19 @@ docker run --name "$REDIS_CONTAINER" \
   -e TZ="$TZ_LOCAL" \
   -p "$IO_REDIS_PORT:6379" \
   --restart=always \
+  --memory=3g \
   -d redis:latest redis-server \
     --requirepass "$IO_REDIS_PASSWORD" \
-    --maxclients 2000 \
+    --maxclients 1000 \
     --tcp-keepalive 60 \
-    --maxmemory-policy allkeys-lru \
+    --maxmemory 2gb \
+    --maxmemory-policy volatile-lru \
     --save "" \
     --appendonly yes \
-    --appendfsync everysec
+    --appendfsync everysec \
+    --lazyfree-lazy-eviction yes \
+    --lazyfree-lazy-expire yes \
+    --lazyfree-lazy-server-del yes
 
 log "Redis reinstalado com sucesso."
 
