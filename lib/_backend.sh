@@ -37,10 +37,9 @@ backend_db_create() {
                 --maxclients 1000 \
                 --tcp-keepalive 60 \
                 --maxmemory 2gb \
-                --maxmemory-policy volatile-lru \
+                --maxmemory-policy noeviction \
                 --save "" \
-                --appendonly yes \
-                --appendfsync everysec \
+                --appendonly no \
                 --lazyfree-lazy-eviction yes \
                 --lazyfree-lazy-expire yes \
                 --lazyfree-lazy-server-del yes
