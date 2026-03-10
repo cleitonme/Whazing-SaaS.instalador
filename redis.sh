@@ -48,7 +48,7 @@ docker run --name "$REDIS_CONTAINER" \
   --memory=3g \
   -d redis:latest redis-server \
     --requirepass "$IO_REDIS_PASSWORD" \
-    --maxclients 1000 \
+    --maxclients 10000 \
     --tcp-keepalive 60 \
     --maxmemory 2gb \
     --maxmemory-policy volatile-lru \
