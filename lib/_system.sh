@@ -1035,7 +1035,7 @@ EOF
 
 system_caddy_setup() {
   print_banner
-  printf "${WHITE} 💻 Instalando Caddy no Ubuntu 22.04...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Instalando Caddy...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
