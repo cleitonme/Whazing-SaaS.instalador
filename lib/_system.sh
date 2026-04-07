@@ -535,8 +535,8 @@ criar_cron() {
 
   sleep 2
 
-  sudo su - root <<EOF
-(crontab -l -u deploy | grep -v "docker container restart whazing-backend"; echo "10 0 * * * docker container restart whazing-backend") | crontab -u deploy -
+sudo su - root <<EOF
+(crontab -l -u deploy 2>/dev/null | grep -v "whazing-backend"; echo "10 0 * * * /usr/bin/docker container restart whazing-backend") | crontab -u deploy -
 EOF
 
   sleep 2
