@@ -14,8 +14,8 @@ else
 fi
 
 # Verifica se o sistema é Ubuntu e se a versão é compatível
-if [[ "$OS_NAME" != "ubuntu" || ("$OS_VERSION" != "20.04" && "$OS_VERSION" != "22.04") ]]; then
-    echo "Erro: Este script só pode ser executado no Ubuntu 20.04 ou 22.04."
+if [[ "$OS_NAME" != "ubuntu" || ("$OS_VERSION" != "20.04" && "$OS_VERSION" != "22.04" && "$OS_VERSION" != "24.04") ]]; then
+    echo "Erro: Este script só pode ser executado no Ubuntu 20.04 ou 22.04 ou 24.04"
     echo "Sistema detectado: $OS_NAME $OS_VERSION"
     exit 1
 fi
