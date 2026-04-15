@@ -1,14 +1,91 @@
 #!/bin/bash
 set -e
 
-# Detecta timezone do sistema
+# =========================
+# CONFIG
+# =========================
+
 TIMEZONE=$(timedatectl | grep "Time zone" | awk '{print $3}')
 YAML_PATH="/home/deploy/wuzapi.yaml"
 
-# Funções utilitárias
+# =========================
+# CORES
+# =========================
+
+RED='\033[1;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[1;32m'
+CYAN='\033[1;36m'
+WHITE='\033[1;37m'
+BOLD='\033[1m'
+NC='\033[0m'
+
 print_banner() {
-  echo "=============================="
+  printf "${CYAN}${BOLD}========================================${NC}\n"
 }
+
+log() {
+  printf "${CYAN}➜ %s${NC}\n" "$1"
+}
+
+log_ok() {
+  printf "${GREEN}✔ %s${NC}\n" "$1"
+}
+
+log_warn() {
+  printf "${YELLOW}⚠ %s${NC}\n" "$1"
+}
+
+log_error() {
+  printf "${RED}✖ %s${NC}\n" "$1"
+}
+
+# =========================
+# VERIFICA DISCO
+# =========================
+
+verifica_disco() {
+  uso=$(df -h / | awk 'NR==2 {print $5}' | sed 's/%//')
+
+  total=30
+  preenchido=$((uso * total / 100))
+  vazio=$((total - preenchido))
+
+  barra_cheia=$(printf "%0.s█" $(seq 1 $preenchido))
+  barra_vazia=$(printf "%0.s░" $(seq 1 $vazio))
+
+  print_banner
+  printf "${BOLD}💾 STATUS DO DISCO${NC}\n"
+  print_banner
+
+  printf "\n${WHITE}Uso atual:${NC} ${BOLD}%s%%${NC}\n\n" "$uso"
+
+  if [ "$uso" -ge 95 ]; then COR=$RED
+  elif [ "$uso" -ge 90 ]; then COR=$RED
+  elif [ "$uso" -ge 80 ]; then COR=$YELLOW
+  else COR=$GREEN
+  fi
+
+  printf "${COR}[%s%s] %s%%${NC}\n\n" "$barra_cheia" "$barra_vazia" "$uso"
+
+  if [ "$uso" -ge 95 ]; then
+    log_error "DISCO CRÍTICO - operação cancelada"
+    exit 1
+  elif [ "$uso" -ge 90 ]; then
+    log_warn "Alto risco de falha"
+  elif [ "$uso" -ge 80 ]; then
+    log_warn "Espaço quase cheio"
+  else
+    log_ok "Disco OK"
+  fi
+
+  printf "\n"
+  sleep 2
+}
+
+# =========================
+# UTIL
+# =========================
 
 generate_token() {
   tr -dc A-Za-z0-9 </dev/urandom | head -c 30
@@ -18,11 +95,12 @@ generate_password() {
   tr -dc A-Za-z0-9 </dev/urandom | head -c 15
 }
 
-# Função principal de instalação
+# =========================
+# INSTALAÇÃO
+# =========================
+
 install_wuzapi() {
-  print_banner
-  echo "🚀 Instalando WuzAPI..."
-  sleep 1
+  log "Instalando WuzAPI..."
 
   ADMIN_TOKEN=$(generate_token)
   DB_PASSWORD=$(generate_password)
@@ -112,44 +190,52 @@ YAML
 
 cd /home/deploy
 docker compose -f wuzapi.yaml up -d
-docker network connect bridge wuzapi
+docker network connect bridge wuzapi || true
 EOF
 
   print_banner
-  echo "✅ Instalação concluída!"
-  echo "URL WuzAPI: http://127.0.0.1:8080"
-  echo "Admin Token: ${ADMIN_TOKEN}"
-  echo "DB Password: ${DB_PASSWORD}"
-  echo "Arquivo: ${YAML_PATH}"
-  echo "=============================="
+  printf "${GREEN}${BOLD}✅ INSTALAÇÃO CONCLUÍDA${NC}\n"
+  print_banner
+
+  printf "\n${WHITE}🌐 URL:${NC} http://127.0.0.1:8080\n"
+  printf "${WHITE}🔑 TOKEN:${NC} ${ADMIN_TOKEN}\n"
+  printf "${WHITE}🗄 SENHA DB:${NC} ${DB_PASSWORD}\n\n"
 }
 
-# Função principal de atualização
+# =========================
+# UPDATE
+# =========================
+
 update_wuzapi() {
-  print_banner
-  echo "🔄 Atualizando WuzAPI..."
-  sleep 1
+  log "Atualizando WuzAPI..."
 
   sudo su - deploy <<EOF
 cd /home/deploy
 docker compose -f $YAML_PATH pull wuzapi-server
 docker compose -f $YAML_PATH up -d --no-deps --force-recreate wuzapi-server
-docker network connect bridge wuzapi
+docker network connect bridge wuzapi || true
 EOF
 
   ADMIN_TOKEN=$(grep "WUZAPI_ADMIN_TOKEN=" "$YAML_PATH" | cut -d '=' -f2)
+  DB_PASSWORD=$(grep "DB_PASSWORD=" "$YAML_PATH" | cut -d '=' -f2)
 
-  print_banner
-  echo "✅ Atualização concluída!"
-  echo "URL WuzAPI: http://127.0.0.1:8080"
-  echo "Admin Token: ${ADMIN_TOKEN}"
-  echo "=============================="
+  log_ok "Atualização concluída"
+  printf "\n${WHITE}🌐 URL:${NC} http://127.0.0.1:8080\n"
+  printf "${WHITE}🔑 TOKEN:${NC} ${ADMIN_TOKEN}\n"
+  printf "${WHITE}🗄 SENHA DB:${NC} ${DB_PASSWORD}\n\n"
 }
 
-# Início do script
+# =========================
+# INÍCIO
+# =========================
+
+clear
 print_banner
-echo "💻 Iniciando processo WuzAPI..."
-sleep 1
+printf "${BOLD}🚀 WUZAPI MANAGER${NC}\n"
+print_banner
+
+# VERIFICA DISCO
+verifica_disco
 
 if [ -f "$YAML_PATH" ]; then
   update_wuzapi
