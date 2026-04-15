@@ -89,7 +89,7 @@ inquiry_options() {
   print_banner
   printf "\n\n"
   printf "${WHITE} 💻 O que você precisa fazer?${GRAY_LIGHT}\n\n"
-  printf "   Versão instalador 16/08/2025\n\n"
+  printf "   Versão instalador 15/04/2026\n\n"
   printf "   [1] Instalar\n"
   printf "   [2] Atualizar whazing(antes de atualizar faça um Snapshots da VPS\n"
   printf "   [3] Atualizar whazing BETA(antes de atualizar faça um Snapshots da VPS\n"
