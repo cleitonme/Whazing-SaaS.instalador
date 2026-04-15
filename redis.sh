@@ -1,46 +1,147 @@
 #!/bin/bash
 set -euo pipefail
 
-# Caminho do .env
-ENV_FILE="/home/deploy/whazing/backend/.env"
-sed -i 's/\r$//' "$ENV_FILE"
+# =========================
+# CONFIG
+# =========================
 
-# Containers
+ENV_FILE="/home/deploy/whazing/backend/.env"
 BACKEND_CONTAINER="whazing-backend"
 REDIS_CONTAINER="redis-whazing"
 
-log() { echo "[ $(date '+%Y-%m-%d %H:%M:%S') ] $*"; }
+# =========================
+# CORES
+# =========================
+
+RED='\033[1;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[1;32m'
+CYAN='\033[1;36m'
+WHITE='\033[1;37m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+# =========================
+# LOGS BONITOS
+# =========================
+
+log() {
+  printf "${CYAN}[ %s ]${NC} %s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$1"
+}
+
+log_ok() {
+  printf "${GREEN}✔ %s${NC}\n" "$1"
+}
+
+log_warn() {
+  printf "${YELLOW}⚠ %s${NC}\n" "$1"
+}
+
+log_error() {
+  printf "${RED}✖ %s${NC}\n" "$1"
+}
+
+print_banner() {
+  printf "${CYAN}${BOLD}========================================${NC}\n"
+}
+
+# =========================
+# VERIFICA DISCO
+# =========================
+
+verifica_disco() {
+  uso=$(df -h / | awk 'NR==2 {print $5}' | sed 's/%//')
+
+  total=30
+  preenchido=$((uso * total / 100))
+  vazio=$((total - preenchido))
+
+  barra_cheia=$(printf "%0.s█" $(seq 1 $preenchido))
+  barra_vazia=$(printf "%0.s░" $(seq 1 $vazio))
+
+  print_banner
+  printf "${BOLD}💾 STATUS DO DISCO${NC}\n"
+  print_banner
+
+  printf "\n${WHITE}Uso atual:${NC} ${BOLD}%s%%${NC}\n\n" "$uso"
+
+  if [ "$uso" -ge 95 ]; then COR=$RED
+  elif [ "$uso" -ge 90 ]; then COR=$RED
+  elif [ "$uso" -ge 80 ]; then COR=$YELLOW
+  else COR=$GREEN
+  fi
+
+  printf "${COR}[%s%s] %s%%${NC}\n\n" "$barra_cheia" "$barra_vazia" "$uso"
+
+  if [ "$uso" -ge 95 ]; then
+    log_error "DISCO CRÍTICO - operação cancelada"
+    exit 1
+  elif [ "$uso" -ge 90 ]; then
+    log_warn "Alto risco de falha"
+  elif [ "$uso" -ge 80 ]; then
+    log_warn "Espaço quase cheio"
+  else
+    log_ok "Disco OK"
+  fi
+
+  printf "\n"
+}
+
+# =========================
+# INÍCIO
+# =========================
+
+clear
+print_banner
+printf "${BOLD}🚀 REINSTALAÇÃO REDIS + BACKEND${NC}\n"
+print_banner
+printf "\n"
+
+# Verifica disco antes de tudo
+verifica_disco
+
+# =========================
+# VALIDAÇÕES
+# =========================
 
 if [[ ! -f "$ENV_FILE" ]]; then
-  echo "ERRO: arquivo .env não encontrado em: $ENV_FILE" >&2
+  log_error "Arquivo .env não encontrado: $ENV_FILE"
   exit 2
 fi
 
-# Carrega variáveis do .env
+# Remove CRLF
+sed -i 's/\r$//' "$ENV_FILE"
+
+# Carrega ENV
 set -a
 source "$ENV_FILE"
 set +a
 
-# Valida variáveis obrigatórias
 if [[ -z "${IO_REDIS_PORT:-}" || -z "${IO_REDIS_PASSWORD:-}" ]]; then
-  echo "ERRO: IO_REDIS_PORT ou IO_REDIS_PASSWORD não definidos no .env" >&2
+  log_error "IO_REDIS_PORT ou IO_REDIS_PASSWORD não definidos"
   exit 3
 fi
 
-# Detecta timezone local
 TZ_LOCAL=$(timedatectl show -p Timezone --value || echo "UTC")
+
+# =========================
+# EXECUÇÃO
+# =========================
 
 log "Parando containers..."
 docker stop "$BACKEND_CONTAINER" || true
 docker stop "$REDIS_CONTAINER" || true
+log_ok "Containers parados"
 
-log "Removendo container antigo do Redis..."
+log "Removendo Redis antigo..."
 docker rm "$REDIS_CONTAINER" || true
+log_ok "Redis removido"
 
-log "Limpando imagens não utilizadas..."
+log "Limpando imagens Docker..."
 docker image prune -f
+log_ok "Limpeza concluída"
 
-log "Reinstalando Redis na porta $IO_REDIS_PORT com timezone $TZ_LOCAL..."
+log "Subindo Redis..."
 docker run --name "$REDIS_CONTAINER" \
   -e TZ="$TZ_LOCAL" \
   -p "$IO_REDIS_PORT:6379" \
@@ -58,10 +159,17 @@ docker run --name "$REDIS_CONTAINER" \
     --lazyfree-lazy-expire yes \
     --lazyfree-lazy-server-del yes
 
-log "Redis reinstalado com sucesso."
+log_ok "Redis rodando"
 
-log "Iniciando novamente o backend..."
+log "Iniciando backend..."
 docker start "$BACKEND_CONTAINER"
+log_ok "Backend iniciado"
 
-log "Mostrando últimos logs do backend (Ctrl+C para sair)..."
-docker logs -f "$BACKEND_CONTAINER" --tail 100
+print_banner
+printf "${GREEN}${BOLD}✅ PROCESSO FINALIZADO COM SUCESSO${NC}\n"
+print_banner
+
+printf "\n${WHITE}📡 Backend online${NC}\n"
+printf "${WHITE}⚡ Redis pronto${NC}\n\n"
+
+sleep 5
