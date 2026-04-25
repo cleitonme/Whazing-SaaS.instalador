@@ -88,15 +88,15 @@ validar_dns() {
   print_banner
   printf "${YELLOW} 🌐 CONFIGURAÇÃO DE DNS${NC}\n\n"
   printf "${WHITE} Antes de continuar, confirme:${NC}\n\n"
-  printf "   - Criou os subdomínios:\n"
-  printf "     Frontend → bot.seusite.com.br\n"
-  printf "     Backend  → api.seusite.com.br\n\n"
+  printf "   - Criou os subdomínios (exemplos):\n"
+  printf "     Frontend → bot.seusite.com.br (exemplo)\n"
+  printf "     Backend  → api.seusite.com.br (exemplo)\n\n"
   printf "   - Ambos apontam para o IP da sua VPS\n"
   printf "   - Testou em: https://dnschecker.org\n"
   printf "   - Se usar Cloudflare: proxy DESATIVADO (nuvem cinza)\n\n"
-  printf "${RED} ⚠️ Se isso estiver errado, a instalação VAI FALHAR (SSL/nginx)${NC}\n\n"
+  printf "${RED} ⚠️ Se isso estiver errado, a instalação VAI FALHAR (SSL)${NC}\n\n"
 
-  read -p "DNS está 100%% configurado corretamente? (s/n): " dns_ok </dev/tty
+  read -p "DNS está 100% configurado corretamente? (s/n): " dns_ok </dev/tty
 
   if [[ ! "$dns_ok" =~ ^[Ss]$ ]]; then
     printf "\n${RED} ❌ Corrija o DNS antes de continuar.${NC}\n"
