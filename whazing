@@ -86,6 +86,23 @@ echo "Sistema compatível detectado: $OS_NAME $OS_VERSION"
 echo "Continuando instalador..."
 sleep 1
 
+# =========================
+# VALIDAÇÃO DE ARQUITETURA
+# =========================
+ARCH=$(uname -m)
+
+echo "Arquitetura detectada: $ARCH"
+
+if [[ "$ARCH" != "x86_64" && "$ARCH" != "amd64" ]]; then
+  echo -e "${RED}${BOLD}❌ ARQUITETURA NÃO SUPORTADA${NC}"
+  echo -e "${RED}Este sistema NÃO funciona em ARM (aarch64, arm64, etc).${NC}"
+  echo -e "${YELLOW}Use uma VPS com arquitetura x86_64.${NC}"
+  exit 1
+fi
+
+echo -e "${GREEN}✅ Arquitetura compatível (x86_64)${NC}\n"
+sleep 2
+
 # Verifica se o sistema está aguardando reinicialização
 if [ -f /var/run/reboot-required ]; then
     echo "⚠️  O sistema precisa ser reiniciado antes de executar este script."
