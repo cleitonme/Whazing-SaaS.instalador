@@ -688,12 +688,15 @@ echo $senha > /root/senhadeploy
 
   backend_domain=$(echo "${backend_url/https:\/\/}")
   frontend_domain=$(echo "${frontend_url/https:\/\/}")
+  ADMIN_TOKEN=$(grep "WUZAPI_ADMIN_TOKEN=" /home/deploy/wuzapi.yaml 2>/dev/null | cut -d '=' -f2 || echo "N/A")
+  DB_PASSWORD=$(grep "DB_PASSWORD=" /home/deploy/wuzapi.yaml 2>/dev/null | head -1 | cut -d '=' -f2 || echo "N/A")
 
   print_banner
   printf "${GREEN} 💻 Instalação concluída com Sucesso...${NC}"
   printf "${CYAN_LIGHT}";
   printf "\n\n"
   printf "\n"
+  printf "=== WHAZING ===\n"
   printf "Usuário: admin@admin.com"
   printf "\n"
   printf "Senha: 123456"
@@ -712,7 +715,13 @@ echo $senha > /root/senhadeploy
   printf "\n"
   printf "Senha do Redis: $senha"
   printf "\n"
+  printf "\n"
   printf "${NC}";
+  printf "${GREEN} 💻 Informações do WuzAPI...${NC}"
+  printf "\n\n"
+  printf "${WHITE}🌐 URL WuzAPI:${NC} http://127.0.0.1:8080\n"
+  printf "${WHITE}🔑 Admin Token:${NC} ${ADMIN_TOKEN}\n"
+  printf "${WHITE}🗄 Senha DB WuzAPI:${NC} ${DB_PASSWORD}\n"
 
   sleep 2
 }
@@ -934,8 +943,8 @@ download_docker_imagem_beta() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/frontend
-  docker pull --disable-content-trust=1 whazing/whazing-frontend:beta
-  docker pull --disable-content-trust=1 whazing/whazing-backend:beta
+  docker pull whazing/whazing-frontend:beta
+  docker pull whazing/whazing-backend:beta
 
 
 EOF
@@ -952,8 +961,8 @@ download_docker_imagem_estavel() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/frontend
-  docker pull --disable-content-trust=1 whazing/whazing-frontend:latest
-  docker pull --disable-content-trust=1 whazing/whazing-backend:latest
+  docker pull whazing/whazing-frontend:latest
+  docker pull whazing/whazing-backend:latest
 
 
 EOF
@@ -987,7 +996,7 @@ ponteiner_docker_update() {
 
   sudo su - deploy <<EOF
   cd /home/deploy/whazing/backend
-  docker pull --disable-content-trust=1 portainer/portainer-ce
+  docker pull portainer/portainer-ce
   docker stop portainer
   docker rm portainer
   docker run -d --name portainer \

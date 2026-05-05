@@ -175,4 +175,12 @@ frontend_docker_start
 # network related
 caddy_config_setup
 criar_cron
+
+# WUZAPI installation
+wuzapi_install
+
+# Configure WuzAPI in database (after backend is running)
+wuzapi_configure_db
+
+# Show success messages
 system_success
