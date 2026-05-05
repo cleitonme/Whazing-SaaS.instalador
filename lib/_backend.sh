@@ -50,6 +50,15 @@ backend_db_create() {
                 --restart=always \
                 -v /var/run/docker.sock:/var/run/docker.sock \
                 -v portainer_data:/data portainer/portainer-ce
+				
+  docker run -d \
+                --name pgbouncer-whazing \
+                --restart=always \
+                --network host \
+                -e DATABASES="postgres=host=127.0.0.1 port=5432 dbname=postgres user=whazing password=${senha}" \
+                -e POOL_MODE=transaction \
+                -e LISTEN_PORT=6432 \
+                pgbouncer/pgbouncer
 EOF
 
   sleep 2
@@ -92,7 +101,7 @@ PORT=3000
 
 # conexão com o banco de dados
 DB_DIALECT=postgres
-DB_PORT=5432
+DB_PORT=6432
 DB_TIMEZONE=${timezonenumber}
 POSTGRES_HOST=localhost
 POSTGRES_USER=whazing
