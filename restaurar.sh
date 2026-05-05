@@ -61,7 +61,7 @@ echo "[INFO] Verificando arquivo de backup em: $BACKUP_FILE"
 if [[ ! -f "$BACKUP_FILE" ]]; then
   echo "ERRO: arquivo de backup não encontrado em: $BACKUP_FILE" >&2
   echo "[INFO] Arquivos .sql.gz disponíveis no diretório:" >&2
-  ls -lh "${SCRIPT_DIR}"/*.sql.gz 2>/dev/null || echo "Nenhum arquivo .sql.gz encontrado" >&2
+  ls -lh /home/deploy/*.sql.gz 2>/dev/null || echo "Nenhum arquivo .sql.gz encontrado" >&2
   exit 3
 fi
 echo "[INFO] Backup encontrado: $(ls -lh "$BACKUP_FILE")"
