@@ -149,7 +149,7 @@ if [[ "${DB_PORT:-5432}" == "6432" ]]; then
     --name "$PGBOUNCER_CONTAINER" \
     --restart=always \
     --network host \
-    -e DATABASES="postgres=host=127.0.0.1 port=5432 dbname=$NEW_DB user=$POSTGRES_USER password=${POSTGRES_PASSWORD}" \
+    -e DATABASES="$NEW_DB=host=127.0.0.1 port=5432 dbname=$NEW_DB user=$POSTGRES_USER password=${POSTGRES_PASSWORD}" \
     -e POOL_MODE=transaction \
     -e LISTEN_PORT=6432 \
     -e MAX_CLIENT_CONN=1000 \
