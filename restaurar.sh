@@ -48,23 +48,13 @@ if [[ -z "${POSTGRES_USER:-}" ]] || [[ -z "${POSTGRES_DB:-}" ]]; then
   exit 5
 fi
 
-# DEBUG: Mostra todas as variáveis relacionadas ao PG
-echo ""
-echo "############################################################"
-echo "[DEBUG] Variáveis do PostgreSQL carregadas:"
-echo "  POSTGRES_USER: ${POSTGRES_USER}"
-echo "  POSTGRES_DB: ${POSTGRES_DB}"
-echo "  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:+***SET***}"
-echo "  DB_PORT: ${DB_PORT:-5432}"
-echo "  DB_HOST: ${DB_HOST:-localhost}"
-echo "############################################################"
-echo ""
-
 # Verifica POSTGRES_PASSWORD se estiver usando PgBouncer
 if [[ "${DB_PORT:-5432}" == "6432" ]] && [[ -z "${POSTGRES_PASSWORD:-}" ]]; then
   echo "ERRO: POSTGRES_PASSWORD não definido no .env (necessário para PgBouncer)" >&2
   exit 12
 fi
+
+echo "[INFO] Variáveis carregadas: POSTGRES_USER=$POSTGRES_USER, POSTGRES_DB=$POSTGRES_DB, DB_PORT=${DB_PORT:-5432}"
 
 # Verifica backup
 echo "[INFO] Verificando arquivo de backup em: $BACKUP_FILE"
@@ -87,7 +77,7 @@ echo "[INFO] Backend parado com sucesso!"
 
 # Para PgBouncer se estiver rodando
 if docker ps -a --format '{{.Names}}' | grep -q "^${PGBOUNCER_CONTAINER}$"; then
-  echo "[INFO] Parando PgBouncer existente..."
+  echo "[INFO] Parando PgBouncer..."
   docker container stop "$PGBOUNCER_CONTAINER" 2>/dev/null || true
   echo "[INFO] PgBouncer parado!"
 fi
@@ -141,94 +131,49 @@ echo "[INFO] .env atualizado!"
 # Remove \r novamente (caso tenha sido adicionado)
 sed -i 's/\r$//' "$ENV_FILE" 2>/dev/null || true
 
-# DEBUG: Verifica valor atual de DB_PORT
-echo ""
-echo "############################################################"
-echo "[DEBUG] Verificando se precisa recriar PgBouncer..."
-echo "  DB_PORT atual: ${DB_PORT:-5432}"
-echo "  Comparação: DB_PORT == 6432 ? $( [[ "${DB_PORT:-5432}" == "6432" ]] && echo 'SIM' || echo 'NÃO' )"
-echo "############################################################"
-echo ""
-
 # Recria PgBouncer se estiver em uso
 if [[ "${DB_PORT:-5432}" == "6432" ]]; then
   echo ""
   echo "############################################################"
-  echo "[INFO] DETECTADO: DB_PORT=6432 - PgBouncer será recriado"
+  echo "[INFO] Detectado PgBouncer (porta 6432). Recriando container..."
   echo "############################################################"
   
-  # Mostra container atual se existir
-  if docker ps -a --format '{{.Names}}\t{{.Status}}' | grep "$PGBOUNCER_CONTAINER"; then
-    echo "[INFO] Container PgBouncer existente encontrado:"
-    docker ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | grep -E "NAMES|$PGBOUNCER_CONTAINER"
-  fi
-  
   # Remove container antigo completamente
-  echo "[INFO] Removendo container antigo..."
   docker container stop "$PGBOUNCER_CONTAINER" 2>/dev/null || true
   docker container rm "$PGBOUNCER_CONTAINER" 2>/dev/null || true
-  sleep 2
   
-  echo ""
-  echo "[INFO] Criando novo container PgBouncer:"
-  echo "  Banco: $NEW_DB"
-  echo "  User: $POSTGRES_USER"
-  echo "  Password: ${POSTGRES_PASSWORD:+***SET***}"
-  echo "  Porta: 6432"
-  echo ""
+  echo "[INFO] Criando novo container PgBouncer com banco: $NEW_DB"
   
-  # Comando completo pra debug
-  PGBOUNCER_CMD="docker run -d \
-    --name $PGBOUNCER_CONTAINER \
+  # Recria com novo banco
+  docker run -d \
+    --name "$PGBOUNCER_CONTAINER" \
     --restart=always \
     --network host \
-    -e DATABASES=\"postgres=host=127.0.0.1 port=5432 dbname=$NEW_DB user=$POSTGRES_USER password=${POSTGRES_PASSWORD}\" \
+    -e DATABASES="postgres=host=127.0.0.1 port=5432 dbname=$NEW_DB user=$POSTGRES_USER password=${POSTGRES_PASSWORD}" \
     -e POOL_MODE=transaction \
     -e LISTEN_PORT=6432 \
     -e MAX_CLIENT_CONN=1000 \
     -e DEFAULT_POOL_SIZE=25 \
-    pgbouncer/pgbouncer"
+    pgbouncer/pgbouncer
   
-  echo "[DEBUG] Executando comando:"
-  echo "$PGBOUNCER_CMD"
-  echo ""
-  
-  # Executa
-  eval $PGBOUNCER_CMD
-  PGBOUNCER_EXIT=$?
-  
-  if [ $PGBOUNCER_EXIT -ne 0 ]; then
-    echo ""
-    echo "ERRO: Falha ao recriar PgBouncer. Exit code: $PGBOUNCER_EXIT" >&2
+  if [ $? -ne 0 ]; then
+    echo "ERRO: Falha ao recriar PgBouncer" >&2
     echo "[INFO] Tentando iniciar backend mesmo assim..." >&2
     docker container start "$BACKEND_CONTAINER"
     exit 11
   fi
   
-  echo "[INFO] Container criado! Aguardando inicialização..."
+  echo "[INFO] PgBouncer recriado com sucesso!"
+  echo "[INFO] Aguardando inicialização do PgBouncer..."
   sleep 5
   
   # Verifica se PgBouncer está rodando
-  echo ""
-  if docker ps --format '{{.Names}}\t{{.Status}}' | grep -q "^${PGBOUNCER_CONTAINER}"; then
-    echo "[SUCESSO] PgBouncer está rodando:"
-    docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | grep -E "NAMES|$PGBOUNCER_CONTAINER"
-    echo ""
-    echo "[INFO] Testando conexão com PgBouncer..."
-    docker exec -i "$PGBOUNCER_CONTAINER" psql -h 127.0.0.1 -p 6432 -U "$POSTGRES_USER" -d postgres -c "SELECT version();" 2>&1 || echo "[AVISO] Teste de conexão falhou"
+  if docker ps --format '{{.Names}}' | grep -q "^${PGBOUNCER_CONTAINER}$"; then
+    echo "[INFO] PgBouncer está rodando!"
   else
-    echo "[AVISO] PgBouncer pode não ter iniciado corretamente!" >&2
-    echo ""
-    echo "Logs do PgBouncer:"
-    docker logs "$PGBOUNCER_CONTAINER" 2>&1 | tail -20
-    echo ""
+    echo "AVISO: PgBouncer pode não ter iniciado corretamente. Verifique os logs:" >&2
+    echo "  docker logs $PGBOUNCER_CONTAINER" >&2
   fi
-else
-  echo ""
-  echo "############################################################"
-  echo "[INFO] DB_PORT != 6432 - PgBouncer NÃO será recriado"
-  echo "############################################################"
-  echo ""
 fi
 
 # Inicia backend
@@ -240,28 +185,18 @@ if [ $? -ne 0 ]; then
   exit 10
 fi
 
-# Aguarda backend inicializar
-sleep 3
-
 echo ""
 echo "############################################################"
 echo "[SUCESSO] Restauração concluída!"
-echo "############################################################"
-echo ""
-echo "  Novo banco: $NEW_DB"
+echo "Novo banco: $NEW_DB"
 if [[ "${DB_PORT:-5432}" == "6432" ]]; then
-  echo "  PgBouncer: recriado e rodando na porta 6432"
+  echo "PgBouncer: recriado e rodando na porta 6432"
 fi
-echo "  Backend: reiniciado"
+echo "Backend: reiniciado"
 echo ""
-echo "Containers rodando:"
-docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | grep -E "NAMES|$BACKEND_CONTAINER|$PGBOUNCER_CONTAINER|$CONTAINER_NAME"
-echo ""
-echo "Comandos úteis:"
-echo "  Backend logs:    docker logs -f $BACKEND_CONTAINER"
+echo "Verifique os logs:"
+echo "  Backend: docker logs -f $BACKEND_CONTAINER"
 if [[ "${DB_PORT:-5432}" == "6432" ]]; then
-  echo "  PgBouncer logs:  docker logs -f $PGBOUNCER_CONTAINER"
+  echo "  PgBouncer: docker logs -f $PGBOUNCER_CONTAINER"
 fi
-echo "  PostgreSQL logs: docker logs -f $CONTAINER_NAME"
-echo ""
 echo "############################################################"
