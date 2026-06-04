@@ -127,7 +127,6 @@ TZ_LOCAL=$(timedatectl show -p Timezone --value || echo "UTC")
 # =========================
 # EXECUÇÃO
 # =========================
-
 log "Parando containers..."
 docker stop "$BACKEND_CONTAINER" || true
 docker stop "$REDIS_CONTAINER" || true
@@ -140,6 +139,10 @@ log_ok "Redis removido"
 log "Limpando imagens Docker..."
 docker image prune -f
 log_ok "Limpeza concluída"
+
+log "Atualizando Redis..."
+docker pull redis:latest
+log_ok "Containers parados"
 
 log "Subindo Redis..."
 docker run --name "$REDIS_CONTAINER" \
