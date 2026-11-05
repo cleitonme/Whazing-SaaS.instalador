@@ -91,10 +91,8 @@ backend_set_env() {
 
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whazing/backend/.env
-NODE_ENV=
 BACKEND_URL=${backend_url}
 FRONTEND_URL=${frontend_url}
-ADMIN_DOMAIN=whazing.io
 
 PROXY_PORT=443
 PORT=3000
@@ -131,9 +129,6 @@ MAX_SLEEP_AUTO_REPLY=600
 # tempo para randomização das mensagens gerais
 MIN_SLEEP_INTERVAL=200
 MAX_SLEEP_INTERVAL=500
-
-# usado para mosrar opções não disponíveis normalmente.
-ADMIN_DOMAIN=whazing.io
 
 # Limitar Uso do whazing Usuario e Conexões
 USER_LIMIT=999
