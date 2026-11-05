@@ -88,6 +88,7 @@ backend_set_env() {
   
   jwt_secret=$(openssl rand -base64 32)
   jwt_refresh_secret=$(openssl rand -base64 32)
+  credential_crypto_key=$(openssl rand -base64 32)
 
 sudo su - deploy << EOF
   cat <<[-]EOF > /home/deploy/whazing/backend/.env
@@ -111,6 +112,8 @@ TZ=${timezonetext}
 # Chaves para criptografia do token jwt
 JWT_SECRET=${jwt_secret}
 JWT_REFRESH_SECRET=${jwt_refresh_secret}
+
+CREDENTIAL_CRYPTO_KEY=${credential_crypto_key}
 
 # Dados de conexão com o REDIS
 IO_REDIS_SERVER=localhost
