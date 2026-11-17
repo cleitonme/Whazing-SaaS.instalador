@@ -141,7 +141,7 @@ services:
     restart: always
 
   db:
-    image: postgres:17.2
+    image: postgres:17.12
     container_name: postgreswuzapi
     environment:
       POSTGRES_USER: wuzapi
