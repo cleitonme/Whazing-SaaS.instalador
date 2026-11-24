@@ -157,17 +157,21 @@ atualizacao_terminado() {
   clear
   print_banner
 
-  printf "${GREEN}${BOLD}     ✅ ATUALIZAÇÃO CONCLUÍDA!${NC}\n"
+  printf "${GREEN}${BOLD}     ✅ ATUALIZAÇÃO BAIXADA!${NC}\n"
   print_banner
 
-  printf "\n${WHITE}🚀 Sistema atualizado com sucesso!${NC}\n"
-  printf "${CYAN}📦 Containers reiniciados${NC}\n"
-  printf "${CYAN}🧹 Ambiente limpo${NC}\n\n"
+  printf "\n${WHITE}📦 Os arquivos da atualização foram baixados.${NC}\n"
+  printf "${YELLOW}⏳ O sistema ainda pode estar iniciando.${NC}\n"
+  printf "${YELLOW}🔄 Aguarde a inicialização dos containers e a atualização do banco de dados.${NC}\n\n"
 
-  printf "${GREEN}${BOLD}✔ Tudo operacional${NC}\n"
+  printf "${CYAN}Para acompanhar o log do backend, execute:${NC}\n"
+  printf "${BOLD}docker logs --tail 100 -f whazing-backend${NC}\n\n"
+
+  printf "${WHITE}Considere o sistema pronto quando a inicialização terminar e os serviços estiverem operacionais.${NC}\n"
 
   sleep 5
 }
+
 
 # Execução
 whazing_atualizar
